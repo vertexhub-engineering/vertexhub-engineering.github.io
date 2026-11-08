@@ -135,74 +135,82 @@ footer{border-top:1px solid var(--rule);padding-top:18px;padding-bottom:22px;col
 </section>
 
 </main>
-<footer class="bar" style="display:block">SEEker prototype. Part data and guide figures are illustrative placeholders, not real test results.</footer>
+<footer class="bar" style="display:block">SEEker prototype. Guide figures are illustrative. Part data is compiled from manufacturer datasheets and public reports: always verify against the source.</footer>
 
 <script>
 var $=function(i){return document.getElementById(i)};
-function F(k,l,s,u,t,o){return{k:k,l:l,s:s,u:u,t:t,o:o}}
+var SHEET="18vYYg6wzVsqUy8ps3kYpPhzPfFSXm1VQ8KTdLVzpaWA";
+var BASE={p:["part number","part"],m:["manufacturer","maker"],g:["grade"],tid:["tid","tid (krad)"],sel:["sel let","sel lat","sel"],src:["data source","source"],link:["report link","link"],lot:["lot / date code","lot"],notes:["notes","note"]};
 var T={
-"Voltage regulator":[F("vin","Max input voltage ≥","Vin max"," V","min"),F("iout","Output current ≥","Iout"," A","min"),F("topo","Topology","Type","","sel",["LDO","Switching"])],
-"DC-DC converter":[F("vin","Max input voltage ≥","Vin max"," V","min"),F("iout","Output current ≥","Iout"," A","min"),F("topo","Topology","Type","","sel",["Buck","Boost","Isolated"])],
-"Voltage reference":[F("vref","Output voltage","Vref"," V","sel",["1.25","2.5","5","10"]),F("acc","Initial accuracy ≤","Acc."," %","max")],
-"Op-amp":[F("gbw","Gain-bandwidth ≥","GBW"," MHz","min"),F("vs","Max supply voltage ≥","Vs max"," V","min"),F("vos","Input offset ≤","Vos"," mV","max")],
-"Comparator":[F("tpd","Propagation delay ≤","tpd"," ns","max"),F("vs","Max supply voltage ≥","Vs max"," V","min")],
-"ADC":[F("bits","Resolution ≥","Res."," bit","min"),F("msps","Sample rate ≥","Rate"," MSPS","min"),F("ifc","Interface","I/F","","sel",["SPI","Parallel","LVDS"])],
-"DAC":[F("bits","Resolution ≥","Res."," bit","min"),F("msps","Update rate ≥","Rate"," MSPS","min"),F("ifc","Interface","I/F","","sel",["SPI","Parallel","LVDS"])],
-"FPGA":[F("cells","Logic cells ≥","Logic"," k","min"),F("tech","Technology","Tech","","sel",["Flash","SRAM","Antifuse"])],
-"Microcontroller / processor":[F("mhz","Clock ≥","Clock"," MHz","min"),F("core","Core","Core","","sel",["ARM Cortex-M","ARM Cortex-R","RISC-V","LEON","Other"])],
-"Memory":[F("kind","Memory type","Type","","sel",["SRAM","DRAM","Flash","FRAM","MRAM","EEPROM"]),F("mb","Density ≥","Density"," Mbit","min")],
-"Interface / transceiver":[F("std","Standard","Std","","sel",["RS-485","CAN","LVDS","SpaceWire","Ethernet"]),F("mbps","Data rate ≥","Rate"," Mbps","min")],
-"Power MOSFET / GaN":[F("vds","Max Vds ≥","Vds"," V","min"),F("tech","Technology","Tech","","sel",["Si MOSFET","SiC","GaN"])],
-"Gate driver":[F("ig","Peak drive current ≥","Idrive"," A","min"),F("iso","Isolated","Isolated","","sel",["Yes","No"])],
-"Analog switch / mux":[F("ch","Channels ≥","Ch."," ","min"),F("ron","On-resistance ≤","Ron"," Ω","max")],
-"Clock / oscillator / PLL":[F("mhz","Frequency ≥","Freq"," MHz","min"),F("kind","Type","Type","","sel",["Oscillator","PLL","Clock buffer"])],
-"Isolator / optocoupler":[F("kv","Isolation ≥","Isol."," kV","min"),F("mbps","Data rate ≥","Rate"," Mbps","min")],
-"Current sense / power monitor":[F("vs","Max supply voltage ≥","Vs max"," V","min"),F("acc","Accuracy ≤","Acc."," %","max")],
-"Temperature sensor":[F("acc","Accuracy ≤","Acc."," °C","max"),F("ifc","Interface","I/F","","sel",["Analog","I2C","SPI"])],
-"Load switch / eFuse":[F("vin","Max input voltage ≥","Vin max"," V","min"),F("iout","Current ≥","Iout"," A","min")]
+"LDO":{tab:"LDOs",f:[
+ {k:"vin",h:["vin max","vin max (v)","vin","input voltage"],l:"Max input voltage ≥",s:"Vin max",u:" V",t:"min"},
+ {k:"iout",h:["iout (a)","iout","output current"],l:"Output current ≥",s:"Iout",u:" A",t:"min"}]},
+"FPGA":{tab:"FPGAs",f:[
+ {k:"cells",h:["logic cells (k)","logic cells","logic elements"],l:"Logic cells ≥",s:"Logic",u:" k",t:"min"},
+ {k:"tech",h:["technology","tech"],l:"Technology",s:"Tech",u:"",t:"sel"}]}
 };
-var D=[],N=0;
-function r(t,g,tid,sel,v){var f=T[t],a={};f.forEach(function(x,i){a[x.k]=v[i]});N++;
-D.push({p:"EXAMPLE-"+t.replace(/[^A-Za-z]/g,"").slice(0,4).toUpperCase()+"-"+(N%2?"01":"02"),m:"Maker "+String.fromCharCode(65+N%12),t:t,g:g,tid:tid,sel:sel,src:["Manufacturer","Independent lab","User submitted"][N%3],a:a})}
-r("Voltage regulator","rh",300,80,[14,3,"LDO"]);r("Voltage regulator","cm",75,40,[6,1.5,"LDO"]);r("Voltage regulator","cm",20,15,[36,2,"Switching"]);
-r("DC-DC converter","rh",100,60,[12,5,"Buck"]);r("DC-DC converter","cm",40,30,[28,3,"Isolated"]);
-r("Voltage reference","rh",200,70,["2.5",0.05]);r("Voltage reference","cm",60,25,["5",0.1]);
-r("Op-amp","rh",300,85,[20,36,0.5]);r("Op-amp","cm",100,60,[10,40,0.3]);r("Op-amp","cm",30,20,[50,12,1]);
-r("Comparator","rh",150,70,[20,36]);r("Comparator","cm",50,30,[8,5.5]);
-r("ADC","rh",100,75,[14,125,"LVDS"]);r("ADC","cm",50,37,[16,1,"SPI"]);
-r("DAC","rh",100,70,[16,10,"SPI"]);r("DAC","cm",40,25,[12,50,"Parallel"]);
-r("FPGA","rh",300,100,[150,"Antifuse"]);r("FPGA","cm",60,30,[100,"Flash"]);
-r("Microcontroller / processor","rh",100,80,[200,"LEON"]);r("Microcontroller / processor","cm",30,20,[120,"ARM Cortex-M"]);
-r("Memory","rh",100,75,["MRAM",16]);r("Memory","cm",20,15,["Flash",512]);r("Memory","cm",50,30,["FRAM",4]);
-r("Interface / transceiver","rh",300,80,["RS-485",20]);r("Interface / transceiver","cm",50,35,["CAN",5]);
-r("Power MOSFET / GaN","rh",100,40,[100,"Si MOSFET"]);r("Power MOSFET / GaN","cm",200,60,[200,"GaN"]);
-r("Gate driver","rh",100,60,[4,"Yes"]);r("Gate driver","cm",30,20,[2,"No"]);
-r("Analog switch / mux","rh",300,80,[8,10]);r("Analog switch / mux","cm",50,30,[4,5]);
-r("Clock / oscillator / PLL","rh",100,70,[200,"PLL"]);r("Clock / oscillator / PLL","cm",60,35,[50,"Oscillator"]);
-r("Isolator / optocoupler","rh",100,60,[3,25]);r("Isolator / optocoupler","cm",20,15,[5,100]);
-r("Current sense / power monitor","rh",150,70,[60,0.5]);r("Current sense / power monitor","cm",40,25,[26,0.2]);
-r("Temperature sensor","rh",100,65,[0.5,"I2C"]);r("Temperature sensor","cm",30,20,[1,"Analog"]);
-r("Load switch / eFuse","rh",100,60,[28,5]);r("Load switch / eFuse","cm",50,30,[12,3]);
-
+var SNAP={"LDO":"Part number,Manufacturer,Grade,TID,SEL LET,Iout (A),Data source,Report link,Notes\nTPS7H1111-SP,Texas Instruments,Rad-hard,100,75,1.5,Manufacturer,ti.com/product/TPS7H1111-SP,RHA 100 or 50 krad(Si). SEL SEB and SEGR immune to 75.\nTPS7H1111-SEP,Texas Instruments,Rad-hard,50,43,1.5,Manufacturer,ti.com/product/TPS7H1111-SEP,Space enhanced plastic. TID 50 krad(Si) RLAT. DSEE free to 43.","FPGA":""};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function csv(t){var R=[],r=[],c="",q=false;
+ for(var i=0;i<t.length;i++){var ch=t[i];
+  if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}
+  else if(ch==='"')q=true;else if(ch===","){r.push(c);c=""}
+  else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&t[i+1]==="\n")i++;r.push(c);R.push(r);r=[];c=""}
+  else c+=ch}
+ if(c!==""||r.length){r.push(c);R.push(r)}return R}
+function pick(o,al){for(var i=0;i<al.length;i++)if(o[al[i]]!=null&&o[al[i]]!=="")return o[al[i]];return""}
+function num(v){var n=parseFloat(String(v).replace(/[<>≥≤~]/g,""));return isNaN(n)?NaN:n}
+function parse(text,type){
+ var R=csv(text).filter(function(r){return r.some(function(x){return x.trim()!==""})});
+ if(!R.length)return[];
+ var H=R[0].map(function(h){return h.trim().toLowerCase()});
+ return R.slice(1).map(function(r){
+  var o={};H.forEach(function(h,i){o[h]=(r[i]||"").trim()});
+  var d={p:pick(o,BASE.p),m:pick(o,BASE.m),gt:pick(o,BASE.g),tid:num(pick(o,BASE.tid)),sel:pick(o,BASE.sel),src:pick(o,BASE.src),link:pick(o,BASE.link),lot:pick(o,BASE.lot),notes:pick(o,BASE.notes),a:{}};
+  d.g=/commercial|cots/i.test(d.gt)?"cm":"rh";
+  T[type].f.forEach(function(x){d.a[x.k]=pick(o,x.h)});
+  return d}).filter(function(d){return d.p})}
+var CACHE={};
+async function load(type){
+ if(CACHE[type])return CACHE[type];
+ var res={rows:[],live:false};
+ try{
+  var r=await fetch("https://docs.google.com/spreadsheets/d/"+SHEET+"/gviz/tq?tqx=out:csv&sheet="+encodeURIComponent(T[type].tab));
+  if(!r.ok)throw 0;res={rows:parse(await r.text(),type),live:true};
+ }catch(e){res={rows:parse(SNAP[type]||"",type),live:false}}
+ CACHE[type]=res;return res}
 var sel=$("type");
 sel.innerHTML='<option value="">Choose a component family</option>'+Object.keys(T).map(function(k){return"<option>"+k+"</option>"}).join("");
-sel.onchange=function(){
- var f=T[sel.value];$("hint").style.display=f?"none":"block";
- $("filters").innerHTML=(f||[]).map(function(x){
-  var c=x.t==="sel"?'<select id="f_'+x.k+'"><option value="">Any</option>'+x.o.map(function(o){return"<option>"+o+"</option>"}).join("")+"</select>":'<input id="f_'+x.k+'" type="number" step="any" placeholder="Any">';
+function has(rows,k){return rows.some(function(d){return d.a[k]!==""})}
+sel.onchange=async function(){
+ var t=sel.value;$("res").innerHTML="";
+ if(!t){$("hint").style.display="block";$("hint").textContent="Select a component family to see its filters.";$("filters").innerHTML="";return}
+ $("hint").style.display="block";$("hint").textContent="Loading…";
+ var L=await load(t);if(sel.value!==t)return;
+ var fs=T[t].f.filter(function(x){return has(L.rows,x.k)});
+ $("hint").style.display=fs.length?"none":"block";$("hint").textContent="No extra filters available for this family yet.";
+ $("filters").innerHTML=fs.map(function(x){
+  var c;
+  if(x.t==="sel"){var u=[];L.rows.forEach(function(d){var v=d.a[x.k];if(v&&u.indexOf(v)<0)u.push(v)});
+   c='<select id="f_'+x.k+'"><option value="">Any</option>'+u.map(function(o){return"<option>"+esc(o)+"</option>"}).join("")+"</select>"}
+  else c='<input id="f_'+x.k+'" type="number" step="any" placeholder="Any">';
   return'<div><label for="f_'+x.k+'">'+x.l+(x.t!=="sel"&&x.u.trim()?" ("+x.u.trim()+")":"")+"</label>"+c+"</div>"}).join("");
 };
-function search(){
- if(!sel.value){$("res").innerHTML='<p class="count">Choose a component family first.</p>';return}
- var g=document.querySelector('input[name=grade]:checked').value,f=T[sel.value],tid=parseFloat($("rtid").value);
- var r=D.filter(function(d){
-  if(d.t!==sel.value||(g!=="both"&&d.g!==g)||(!isNaN(tid)&&d.tid<tid))return false;
-  return f.every(function(x){var v=$("f_"+x.k).value;if(v==="")return true;
-   if(x.t==="sel")return String(d.a[x.k])===v;v=parseFloat(v);if(isNaN(v))return true;
-   return x.t==="min"?d.a[x.k]>=v:d.a[x.k]<=v})}).sort(function(a,b){return b.tid-a.tid});
+async function search(){
+ var t=sel.value;
+ if(!t){$("res").innerHTML='<p class="count">Choose a component family first.</p>';return}
+ var L=await load(t),g=document.querySelector('input[name=grade]:checked').value,f=T[t].f,tid=parseFloat($("rtid").value);
+ var r=L.rows.filter(function(d){
+  if(g!=="both"&&d.g!==g)return false;
+  if(!isNaN(tid)&&!(d.tid>=tid))return false;
+  return f.every(function(x){var el=$("f_"+x.k);if(!el||el.value==="")return true;
+   if(x.t==="sel")return d.a[x.k]===el.value;
+   var v=parseFloat(el.value),n=num(d.a[x.k]);if(isNaN(v))return true;return!isNaN(n)&&n>=v})}).sort(function(a,b){return(b.tid||0)-(a.tid||0)});
  var rows=r.map(function(d){
-  return'<tr><td><span class="pn">'+d.p+'</span><br><span class="sp">'+d.m+'</span></td><td><span class="g '+d.g+'">'+(d.g==="rh"?"Rad-hard":"Commercial")+'</span></td><td class="sp">'+f.map(function(x){return x.s+" "+d.a[x.k]+x.u}).join(" · ")+'</td><td>'+d.tid+' krad</td><td>'+d.sel+'</td><td class="sp">'+d.src+'</td></tr>'}).join("");
- $("res").innerHTML='<div class="count">'+r.length+(r.length===1?" result":" results")+'</div>'+(r.length?'<div class="wrap"><table><thead><tr><th>Part</th><th>Grade</th><th>Key specs</th><th>TID</th><th>SEL LET</th><th>Data source</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="fn">Placeholder data. SEL LET in MeV·cm²/mg. Sorted by TID.</p>':'<p class="hint">No parts match. Try removing a filter.</p>');
+  var sp=f.filter(function(x){return d.a[x.k]!==""}).map(function(x){return x.s+" "+esc(d.a[x.k])+x.u}).join(" · ");
+  var lk=d.link?'<a href="'+esc(/^https?:/i.test(d.link)?d.link:"https://"+d.link)+'" target="_blank" rel="noopener" style="color:var(--acc)">'+esc(d.src||"Report")+'</a>':esc(d.src);
+  return'<tr><td><span class="pn">'+esc(d.p)+'</span><br><span class="sp">'+esc(d.m)+(d.lot?" · lot "+esc(d.lot):"")+'</span></td><td><span class="g '+d.g+'">'+esc(d.gt||(d.g==="rh"?"Rad-hard":"Commercial"))+'</span></td><td class="sp">'+sp+'</td><td>'+(isNaN(d.tid)?"–":d.tid+" krad")+'</td><td>'+esc(d.sel||"–")+'</td><td class="sp">'+lk+'</td><td class="sp">'+esc(d.notes)+'</td></tr>'}).join("");
+ $("res").innerHTML='<div class="count">'+r.length+(r.length===1?" result":" results")+'</div>'+(r.length?'<div class="wrap"><table><thead><tr><th>Part</th><th>Grade</th><th>Key specs</th><th>TID</th><th>SEL LET</th><th>Source</th><th>Notes</th></tr></thead><tbody>'+rows+'</tbody></table></div>':'<p class="hint">No parts match. Try removing a filter.</p>')+'<p class="fn">SEL LET in MeV·cm²/mg. Sorted by TID. '+(L.live?"Live data from the SEEker database.":"Showing a saved snapshot. Live data loads once the site is hosted.")+' Always verify against the original report.</p>';
 }
 $("go").onclick=search;
 $("reset").onclick=function(){sel.value="";sel.onchange();$("rtid").value="";document.querySelector('input[name=grade][value=both]').checked=true;$("res").innerHTML=""};
