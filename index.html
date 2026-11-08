@@ -5,151 +5,202 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SEEker</title>
 <style>
-:root{--bg:#fbfbfd;--card:#fff;--text:#1d1d1f;--muted:#6e6e73;--line:#e5e5ea;--acc:#0071e3;--ok:#248a3d;--warn:#b25000;--bad:#d70015;--glass:rgba(251,251,253,.78);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--card:#1c1c1e;--text:#f5f5f7;--muted:#a1a1a6;--line:#2c2c2e;--acc:#2997ff;--ok:#30d158;--warn:#ff9f0a;--bad:#ff453a;--glass:rgba(0,0,0,.72);color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#000;--card:#1c1c1e;--text:#f5f5f7;--muted:#a1a1a6;--line:#2c2c2e;--acc:#2997ff;--ok:#30d158;--warn:#ff9f0a;--bad:#ff453a;--glass:rgba(0,0,0,.72);color-scheme:dark}
+:root{--bg:#f7f5f0;--card:#fcfbf8;--ink:#1a1a1a;--muted:#6b6659;--rule:#dcd7cb;--acc:#1d3a8a;--ok:#2f6b3a;--warn:#9a5b00;--bad:#a12626;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14130f;--card:#1b1a15;--ink:#ece8dd;--muted:#a49f90;--rule:#322f27;--acc:#9db8ff;--ok:#7fcf8d;--warn:#e8b25a;--bad:#f08a8a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14130f;--card:#1b1a15;--ink:#ece8dd;--muted:#a49f90;--rule:#322f27;--acc:#9db8ff;--ok:#7fcf8d;--warn:#e8b25a;--bad:#f08a8a;color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--text);font:17px/1.47 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:10}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--glass);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
-.bar{max-width:980px;margin:0 auto;padding:0 22px;height:48px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-weight:600;font-size:1.05rem;letter-spacing:-.01em;color:var(--text);text-decoration:none}
-nav{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none}
-nav a{white-space:nowrap;color:var(--muted);text-decoration:none;font-size:.82rem;transition:color .2s}
-nav a:hover,nav a.on{color:var(--text)}
-main{max-width:980px;margin:0 auto;padding:0 22px 60px}
-.hero{text-align:center;padding:56px 0 36px}
-h1{font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.07;letter-spacing:-.03em;font-weight:600;margin:0}
-.sub{color:var(--muted);font-size:clamp(1.05rem,2.4vw,1.35rem);margin:14px auto 0;max-width:560px}
-.search{margin:28px auto 0;max-width:520px}
-input,select{font:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;width:100%;outline:none;transition:border-color .2s,box-shadow .2s}
-input:focus,select:focus{border-color:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 18%,transparent)}
-.search input{border-radius:999px;padding:14px 22px;font-size:1.05rem}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.serif{font-family:Georgia,"Times New Roman",serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--ink)}
+.bar{max-width:960px;margin:0 auto;padding:12px 22px;display:flex;align-items:baseline;justify-content:space-between;gap:20px}
+.logo{font-family:Georgia,serif;font-size:1.35rem;color:var(--ink);text-decoration:none;letter-spacing:.01em}
+.logo i{color:var(--acc)}
+nav{display:flex;gap:20px;overflow-x:auto;scrollbar-width:none}
+nav a{white-space:nowrap;color:var(--muted);text-decoration:none;font-size:.85rem;padding-bottom:2px;border-bottom:1px solid transparent}
+nav a:hover{color:var(--ink)}nav a.on{color:var(--ink);border-color:var(--acc)}
+main{max-width:960px;margin:0 auto;padding:8px 22px 56px}
 section{display:none}section.on{display:block}
-h2{font-size:1.75rem;letter-spacing:-.02em;font-weight:600;margin:36px 0 6px}
-.lead{color:var(--muted);margin:0 0 20px}
-.card{background:var(--card);border-radius:18px;padding:22px;border:1px solid var(--line)}
-.tools{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}.tools>*{flex:1;min-width:150px}
-.wrap{overflow-x:auto;padding:6px 8px}
-table{border-collapse:collapse;width:100%;min-width:600px;font-size:.92rem}
-th{color:var(--muted);font-weight:500;font-size:.78rem;text-align:left;padding:12px;border-bottom:1px solid var(--line)}
-td{padding:14px 12px;border-bottom:1px solid var(--line)}tr:last-child td{border:0}
-.btn{background:var(--acc);color:#fff;border:0;border-radius:999px;padding:12px 24px;font:inherit;font-size:.95rem;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity .2s}
-.btn:hover{opacity:.88}
-.tag{font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;background:color-mix(in srgb,currentColor 12%,transparent)}
-.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.grid h3{margin:0 0 6px;font-size:1.1rem;font-weight:600}.grid p{margin:0 0 14px;color:var(--muted);font-size:.93rem}
-.res{margin-top:14px;display:grid;gap:10px}
-.res .card{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 22px}
-.m{color:var(--muted);font-size:.85rem}
-.note{color:var(--muted);font-size:.82rem;margin-top:14px}
-footer{max-width:980px;margin:0 auto;padding:24px 22px;color:var(--muted);font-size:.78rem;border-top:1px solid var(--line)}
+h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(2rem,5.5vw,3.1rem);line-height:1.1;letter-spacing:-.01em;margin:44px 0 10px}
+h2{font-family:Georgia,serif;font-weight:400;font-size:1.7rem;margin:38px 0 6px}
+.lead{color:var(--muted);max-width:600px;margin:0 0 26px}
+.step{display:grid;grid-template-columns:34px 1fr;gap:6px 12px;padding:18px 0;border-top:1px solid var(--rule)}
+.step:first-of-type{border-top:1px solid var(--ink)}
+.n{font-family:Georgia,serif;color:var(--acc);font-size:1.1rem}
+.step h3{margin:0;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+.step h3 small{color:var(--muted);font-weight:400;letter-spacing:0;text-transform:none;font-size:.85rem;margin-left:6px}
+.body{grid-column:2}
+select,input{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:10px 12px;width:100%;outline:none}
+select:focus,input:focus{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 18%,transparent)}
+.seg{display:inline-flex;border:1px solid var(--ink);border-radius:4px;overflow:hidden}
+.seg label{padding:9px 18px;cursor:pointer;font-size:.92rem;border-right:1px solid var(--ink)}
+.seg label:last-child{border:0}
+.seg input{display:none}
+.seg input:checked+span{font-weight:600}
+.seg label:has(input:checked){background:var(--ink);color:var(--bg)}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.filters label{font-size:.82rem;color:var(--muted);display:block;margin-bottom:4px}
+.hint{color:var(--muted);font-size:.9rem;margin:0}
+.go{background:var(--ink);color:var(--bg);border:0;border-radius:4px;padding:13px 30px;font:inherit;font-weight:600;cursor:pointer;margin:6px 0 0}
+.go:hover{background:var(--acc);color:#fff}
+.link{background:none;border:0;color:var(--acc);cursor:pointer;font:inherit;padding:0;margin-left:14px;text-decoration:underline}
+.count{font-family:Georgia,serif;font-size:1.3rem;margin:34px 0 6px;padding-top:14px;border-top:1px solid var(--ink)}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:700px;font-size:.9rem}
+th{text-align:left;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 10px 8px 0;border-bottom:1px solid var(--ink)}
+td{padding:12px 10px 12px 0;border-bottom:1px solid var(--rule);vertical-align:top;font-variant-numeric:tabular-nums}
+.pn{font-weight:600}
+.g{font-size:.74rem;font-weight:600;border:1px solid currentColor;border-radius:3px;padding:1px 7px;white-space:nowrap}
+.g.rh{color:var(--ok)}.g.cm{color:var(--warn)}
+.sp{color:var(--muted);font-size:.82rem}
+.fn{color:var(--muted);font-size:.82rem;margin-top:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;border-top:1px solid var(--ink)}
+.grid div{padding:16px 16px 18px 0;border-bottom:1px solid var(--rule)}
+.grid h3{font-family:Georgia,serif;font-weight:400;font-size:1.15rem;margin:0 0 4px}
+.grid p{margin:0;color:var(--muted);font-size:.9rem}
+.btn{display:inline-block;background:var(--ink);color:var(--bg);padding:12px 26px;border-radius:4px;text-decoration:none;font-weight:600}
+footer{max-width:960px;margin:0 auto;padding:18px 22px;border-top:1px solid var(--rule);color:var(--muted);font-size:.8rem}
 </style>
 </head>
 <body>
 <header><div class="bar">
-<a class="logo" href="#home">SEEker</a>
-<nav id="nav">
-<a href="#parts">Parts</a><a href="#find">Find</a><a href="#radhard">Rad-hard</a><a href="#guides">Guides</a><a href="#labs">Facilities</a><a href="#book">Consult</a>
-</nav></div></header>
+<a class="logo" href="#search">SEE<i>ker</i></a>
+<nav id="nav"><a href="#search">Search</a><a href="#guides">Test guides</a><a href="#labs">Facilities</a><a href="#consult">Consultation</a></nav>
+</div></header>
 <main>
 
-<section id="home">
-<div class="hero">
-<h1>Radiation data,<br>made clear.</h1>
-<p class="sub">Search tested ICs, compare against your mission, and find the right part with confidence.</p>
-<div class="search"><input id="hq" placeholder="Search a part or manufacturer"></div>
-</div>
-</section>
+<section id="search">
+<h1>Find parts that survive radiation.</h1>
+<p class="lead">Choose a component type, decide between rad-hard and commercial parts, and narrow the results with optional filters.</p>
 
-<section id="parts">
-<h2>Tested parts</h2>
-<p class="lead">Industrial and COTS ICs with radiation test results.</p>
-<div class="card">
-<div class="tools"><input id="q" placeholder="Search"><select id="cat"><option value="">All types</option><option>Op-amp</option><option>Regulator</option><option>ADC</option></select></div>
-<div class="wrap"><table><thead><tr><th>Part</th><th>Maker</th><th>Type</th><th>TID, krad</th><th>SEL LET</th><th>Source</th></tr></thead><tbody id="tb"></tbody></table></div>
-<p class="note">Placeholder examples, not real test results.</p>
-</div>
-</section>
+<div class="step"><div class="n">1</div><h3>Component type</h3>
+<div class="body"><select id="type"></select></div></div>
 
-<section id="find">
-<h2>Find a part</h2>
-<p class="lead">Enter your requirements. SEEker ranks parts by margin.</p>
-<div class="card"><div class="tools">
-<select id="rcat"><option>Op-amp</option><option>Regulator</option><option>ADC</option></select>
-<input id="rtid" type="number" min="0" value="50" placeholder="TID, krad">
-<input id="rsel" type="number" min="0" value="37" placeholder="SEL-free LET">
-<button class="btn" id="go">Search</button></div></div>
-<div class="res" id="out"></div>
-</section>
+<div class="step"><div class="n">2</div><h3>Grade</h3>
+<div class="body"><div class="seg">
+<label><input type="radio" name="grade" value="both" checked><span>Both</span></label>
+<label><input type="radio" name="grade" value="rh"><span>Rad-hard only</span></label>
+<label><input type="radio" name="grade" value="cm"><span>Commercial only</span></label>
+</div></div></div>
 
-<section id="radhard">
-<h2>Rad-hard market</h2>
-<p class="lead">Qualified parts from vendors, with grade and availability.</p>
-<div class="card wrap"><table><thead><tr><th>Part</th><th>Vendor</th><th>Type</th><th>Grade</th><th>TID</th></tr></thead>
-<tbody><tr><td>Example-RH-1</td><td>Vendor A</td><td>Op-amp</td><td>QML-V</td><td>300 krad</td></tr>
-<tr><td>Example-RH-2</td><td>Vendor B</td><td>Regulator</td><td>ESCC</td><td>100 krad</td></tr></tbody></table></div>
+<div class="step"><div class="n">3</div><h3>Filters<small>all optional</small></h3>
+<div class="body">
+<p class="hint" id="hint">Select a component type to see its filters.</p>
+<div class="filters" id="filters"></div>
+</div></div>
+
+<div class="step"><div class="n">4</div><h3>Radiation needs<small>optional</small></h3>
+<div class="body"><div class="filters">
+<div><label for="rtid">Minimum TID (krad)</label><input id="rtid" type="number" min="0" placeholder="e.g. 50"></div>
+<div><label for="rsel">Minimum SEL-free LET (MeV·cm²/mg)</label><input id="rsel" type="number" min="0" placeholder="e.g. 37"></div>
+</div></div></div>
+
+<button class="go" id="go">Search</button><button class="link" id="reset">Reset</button>
+
+<div id="res"></div>
 </section>
 
 <section id="guides">
 <h2>Test guides</h2>
-<p class="lead">Proven methods, from setup to pass criteria.</p>
+<p class="lead">Bias conditions, monitored parameters, setup and pass criteria for each component family.</p>
 <div class="grid">
-<div class="card"><h3>Op-amps</h3><p>Bias, drift parameters and ELDRS.</p><span class="tag warn">Draft</span></div>
-<div class="card"><h3>Regulators</h3><p>Dropout, transients, SET and SEL.</p><span class="tag warn">Draft</span></div>
-<div class="card"><h3>ADCs</h3><p>INL, DNL and SEFI recovery.</p><span class="tag warn">Draft</span></div>
-<div class="card"><h3>FPGAs</h3><p>Upsets, scrubbing, monitoring.</p><span class="tag">Planned</span></div>
+<div><h3>Op-amps</h3><p>Offset, bias current, bandwidth drift, ELDRS. Draft.</p></div>
+<div><h3>Voltage regulators</h3><p>Dropout, transients, SET and SEL monitoring. Draft.</p></div>
+<div><h3>ADCs</h3><p>INL, DNL and SEFI recovery. Draft.</p></div>
+<div><h3>FPGAs</h3><p>Configuration upsets and scrubbing. Planned.</p></div>
 </div>
 </section>
 
 <section id="labs">
 <h2>Facilities</h2>
-<p class="lead">Where to test. Confirm beam details with each facility.</p>
-<div class="card wrap"><table><thead><tr><th>Facility</th><th>Location</th><th>Radiation</th></tr></thead><tbody>
-<tr><td>UCLouvain CRC</td><td>Belgium</td><td>Heavy ions, protons</td></tr>
-<tr><td>RADEF</td><td>Finland</td><td>Heavy ions, protons</td></tr>
-<tr><td>PSI PIF</td><td>Switzerland</td><td>Protons</td></tr>
-<tr><td>CERN IRRAD</td><td>Switzerland</td><td>Protons</td></tr>
-<tr><td>ESA ESTEC</td><td>Netherlands</td><td>Co-60 gamma</td></tr>
-<tr><td>Texas A&amp;M Cyclotron</td><td>USA</td><td>Heavy ions, protons</td></tr>
+<p class="lead">Where to test. Confirm beam details and availability with each facility.</p>
+<div class="wrap"><table><thead><tr><th>Facility</th><th>Location</th><th>Radiation</th></tr></thead><tbody>
+<tr><td class="pn">UCLouvain CRC</td><td>Belgium</td><td>Heavy ions, protons</td></tr>
+<tr><td class="pn">RADEF</td><td>Finland</td><td>Heavy ions, protons</td></tr>
+<tr><td class="pn">PSI PIF</td><td>Switzerland</td><td>Protons</td></tr>
+<tr><td class="pn">CERN IRRAD</td><td>Switzerland</td><td>Protons</td></tr>
+<tr><td class="pn">ESA ESTEC</td><td>Netherlands</td><td>Co-60 gamma</td></tr>
+<tr><td class="pn">Texas A&amp;M Cyclotron</td><td>USA</td><td>Heavy ions, protons</td></tr>
 </tbody></table></div>
 </section>
 
-<section id="book">
+<section id="consult">
 <h2>Consultation</h2>
-<p class="lead">Test planning and part selection with an experienced rad-hard engineer.</p>
-<div class="card"><a class="btn" href="#book">Book a call</a><p class="note">Booking link coming soon. Connect Cal.com or Calendly here.</p></div>
+<p class="lead">Test planning, part selection and test setup review with an experienced rad-hard electronics engineer.</p>
+<a class="btn" href="#consult">Book a call</a>
+<p class="fn">Booking link coming soon. Connect Cal.com or Calendly here.</p>
 </section>
 
 </main>
-<footer>SEEker prototype. All data shown is placeholder content.</footer>
+<footer>SEEker prototype. All part data shown is placeholder content, not real test results.</footer>
+
 <script>
-var DATA=[
-{p:"EXAMPLE-OA-1",m:"Maker A",t:"Op-amp",tid:100,sel:60,s:"Independent lab"},
-{p:"EXAMPLE-OA-2",m:"Maker B",t:"Op-amp",tid:30,sel:20,s:"Manufacturer"},
-{p:"EXAMPLE-REG-1",m:"Maker C",t:"Regulator",tid:75,sel:40,s:"Independent lab"},
-{p:"EXAMPLE-REG-2",m:"Maker D",t:"Regulator",tid:20,sel:15,s:"User submitted"},
-{p:"EXAMPLE-ADC-1",m:"Maker E",t:"ADC",tid:50,sel:37,s:"Independent lab"}];
 var $=function(i){return document.getElementById(i)};
-function draw(){
- var q=$("q").value.toLowerCase(),c=$("cat").value;
- $("tb").innerHTML=DATA.filter(function(d){return(!c||d.t===c)&&(!q||(d.p+d.m).toLowerCase().indexOf(q)>-1)}).map(function(d){
-  return"<tr><td><b>"+d.p+"</b></td><td>"+d.m+"</td><td>"+d.t+"</td><td>"+d.tid+"</td><td>"+d.sel+"</td><td>"+d.s+"</td></tr>"}).join("")||"<tr><td colspan=6>No results.</td></tr>";
-}
-$("q").oninput=draw;$("cat").onchange=draw;draw();
-$("hq").onkeydown=function(e){if(e.key==="Enter"){$("q").value=this.value;draw();location.hash="parts"}};
-$("go").onclick=function(){
- var c=$("rcat").value,t=+$("rtid").value||1,s=+$("rsel").value||1;
- $("out").innerHTML=DATA.filter(function(d){return d.t===c}).map(function(d){
-  return{d:d,m:Math.min(d.tid/t,d.sel/s)}}).sort(function(a,b){return b.m-a.m}).map(function(x){
-  var k=x.m>=2?["ok","Meets with margin"]:x.m>=1?["warn","Marginal"]:["bad","Does not meet"];
-  return'<div class="card"><div><b>'+x.d.p+'</b><div class="m">TID '+x.d.tid+' krad, SEL LET '+x.d.sel+'</div></div><div><span class="tag '+k[0]+'">'+k[1]+'</span> <span class="m">×'+x.m.toFixed(1)+'</span></div></div>'}).join("")||'<div class="card">No data yet.</div>';
+var T={
+"Voltage regulator":[
+ {k:"vin",l:"Max input voltage ≥",s:"Vin max",u:" V",t:"min"},
+ {k:"iout",l:"Output current ≥",s:"Iout",u:" A",t:"min"},
+ {k:"vout",l:"Output voltage",s:"Vout",u:" V",t:"sel",o:["1.2","1.8","3.3","5","Adjustable"]},
+ {k:"topo",l:"Topology",s:"Type",u:"",t:"sel",o:["LDO","Switching"]}],
+"Op-amp":[
+ {k:"gbw",l:"Gain-bandwidth ≥",s:"GBW",u:" MHz",t:"min"},
+ {k:"vs",l:"Max supply voltage ≥",s:"Vs max",u:" V",t:"min"},
+ {k:"vos",l:"Input offset ≤",s:"Vos",u:" mV",t:"max"},
+ {k:"rr",l:"Rail-to-rail output",s:"RRO",u:"",t:"sel",o:["Yes","No"]}],
+"ADC":[
+ {k:"bits",l:"Resolution ≥",s:"Res.",u:" bit",t:"min"},
+ {k:"msps",l:"Sample rate ≥",s:"Rate",u:" MSPS",t:"min"},
+ {k:"ifc",l:"Interface",s:"I/F",u:"",t:"sel",o:["SPI","Parallel","LVDS"]}],
+"FPGA":[
+ {k:"cells",l:"Logic cells ≥",s:"Logic",u:" k",t:"min"},
+ {k:"tech",l:"Technology",s:"Tech",u:"",t:"sel",o:["Flash","SRAM","Antifuse"]}]
 };
+var D=[
+{p:"EXAMPLE-REG-01",m:"Maker A",t:"Voltage regulator",g:"rh",tid:300,sel:80,src:"Manufacturer",a:{vin:14,iout:3,vout:"Adjustable",topo:"LDO"}},
+{p:"EXAMPLE-REG-02",m:"Maker B",t:"Voltage regulator",g:"cm",tid:75,sel:40,src:"Independent lab",a:{vin:6,iout:1.5,vout:"3.3",topo:"LDO"}},
+{p:"EXAMPLE-REG-03",m:"Maker C",t:"Voltage regulator",g:"cm",tid:20,sel:15,src:"User submitted",a:{vin:36,iout:2,vout:"5",topo:"Switching"}},
+{p:"EXAMPLE-REG-04",m:"Maker D",t:"Voltage regulator",g:"rh",tid:100,sel:60,src:"Manufacturer",a:{vin:12,iout:5,vout:"1.8",topo:"Switching"}},
+{p:"EXAMPLE-OA-01",m:"Maker E",t:"Op-amp",g:"rh",tid:300,sel:85,src:"Manufacturer",a:{gbw:20,vs:36,vos:0.5,rr:"Yes"}},
+{p:"EXAMPLE-OA-02",m:"Maker F",t:"Op-amp",g:"cm",tid:100,sel:60,src:"Independent lab",a:{gbw:10,vs:40,vos:0.3,rr:"No"}},
+{p:"EXAMPLE-OA-03",m:"Maker G",t:"Op-amp",g:"cm",tid:30,sel:20,src:"Manufacturer",a:{gbw:50,vs:12,vos:1,rr:"Yes"}},
+{p:"EXAMPLE-ADC-01",m:"Maker H",t:"ADC",g:"rh",tid:100,sel:75,src:"Manufacturer",a:{bits:14,msps:125,ifc:"LVDS"}},
+{p:"EXAMPLE-ADC-02",m:"Maker I",t:"ADC",g:"cm",tid:50,sel:37,src:"Independent lab",a:{bits:16,msps:1,ifc:"SPI"}},
+{p:"EXAMPLE-FPGA-01",m:"Maker J",t:"FPGA",g:"rh",tid:300,sel:100,src:"Manufacturer",a:{cells:150,tech:"Antifuse"}},
+{p:"EXAMPLE-FPGA-02",m:"Maker K",t:"FPGA",g:"cm",tid:60,sel:30,src:"Independent lab",a:{cells:100,tech:"Flash"}}];
+var sel=$("type");
+sel.innerHTML='<option value="">Choose a component type</option>'+Object.keys(T).map(function(k){return"<option>"+k+"</option>"}).join("");
+sel.onchange=function(){
+ var f=T[sel.value];
+ $("hint").style.display=f?"none":"block";
+ $("filters").innerHTML=(f||[]).map(function(x){
+  var c=x.t==="sel"?'<select id="f_'+x.k+'"><option value="">Any</option>'+x.o.map(function(o){return"<option>"+o+"</option>"}).join("")+"</select>":'<input id="f_'+x.k+'" type="number" step="any" placeholder="Any">';
+  return'<div><label for="f_'+x.k+'">'+x.l+(x.t!=="sel"&&x.u?" ("+x.u.trim()+")":"")+"</label>"+c+"</div>"}).join("");
+};
+function search(){
+ if(!sel.value){$("res").innerHTML='<p class="count">Choose a component type first.</p>';return}
+ var g=document.querySelector('input[name=grade]:checked').value,f=T[sel.value],
+ tid=parseFloat($("rtid").value),ls=parseFloat($("rsel").value);
+ var r=D.filter(function(d){
+  if(d.t!==sel.value)return false;
+  if(g!=="both"&&d.g!==g)return false;
+  if(!isNaN(tid)&&d.tid<tid)return false;
+  if(!isNaN(ls)&&d.sel<ls)return false;
+  return f.every(function(x){
+   var v=$("f_"+x.k).value;if(v==="")return true;
+   if(x.t==="sel")return String(d.a[x.k])===v;
+   v=parseFloat(v);if(isNaN(v))return true;
+   return x.t==="min"?d.a[x.k]>=v:d.a[x.k]<=v})}).sort(function(a,b){return b.tid-a.tid});
+ var rows=r.map(function(d){
+  var sp=f.map(function(x){return x.s+" "+d.a[x.k]+x.u}).join(" · ");
+  return'<tr><td><span class="pn">'+d.p+'</span><br><span class="sp">'+d.m+'</span></td><td><span class="g '+d.g+'">'+(d.g==="rh"?"Rad-hard":"Commercial")+'</span></td><td class="sp">'+sp+'</td><td>'+d.tid+' krad</td><td>'+d.sel+'</td><td class="sp">'+d.src+'</td></tr>'}).join("");
+ $("res").innerHTML='<div class="count">'+r.length+(r.length===1?" result":" results")+'</div>'+
+ (r.length?'<div class="wrap"><table><thead><tr><th>Part</th><th>Grade</th><th>Key specs</th><th>TID</th><th>SEL LET</th><th>Data source</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="fn">Placeholder data. SEL LET in MeV·cm²/mg. Results sorted by TID.</p>':'<p class="hint">No parts match. Try removing a filter.</p>');
+}
+$("go").onclick=search;
+$("reset").onclick=function(){sel.value="";sel.onchange();$("rtid").value="";$("rsel").value="";document.querySelector('input[name=grade][value=both]').checked=true;$("res").innerHTML=""};
 function route(){
- var id=(location.hash||"#home").slice(1);
- if(!$(id))id="home";
+ var id=(location.hash||"#search").slice(1);if(!$(id))id="search";
  document.querySelectorAll("section").forEach(function(s){s.classList.toggle("on",s.id===id)});
  document.querySelectorAll("#nav a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+id)});
  window.scrollTo(0,0);
