@@ -5,26 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SEEker</title>
 <style>
-:root{--bg:#f7f5f0;--card:#fcfbf8;--ink:#1a1a1a;--muted:#6b6659;--rule:#dcd7cb;--acc:#1d3a8a;--ok:#2f6b3a;--warn:#9a5b00;--bad:#a12626;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--bg:#f7f5f0;--card:#fcfbf8;--ink:#1a1a1a;--muted:#6b6659;--rule:#dcd7cb;--acc:#1d3a8a;--ok:#2f6b3a;--warn:#9a5b00;--bad:#a12626;--px:clamp(18px,4vw,56px);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14130f;--card:#1b1a15;--ink:#ece8dd;--muted:#a49f90;--rule:#322f27;--acc:#9db8ff;--ok:#7fcf8d;--warn:#e8b25a;--bad:#f08a8a;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#14130f;--card:#1b1a15;--ink:#ece8dd;--muted:#a49f90;--rule:#322f27;--acc:#9db8ff;--ok:#7fcf8d;--warn:#e8b25a;--bad:#f08a8a;color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
-.serif{font-family:Georgia,"Times New Roman",serif}
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--ink)}
-.bar{max-width:960px;margin:0 auto;padding:12px 22px;display:flex;align-items:baseline;justify-content:space-between;gap:20px}
-.logo{font-family:Georgia,serif;font-size:1.35rem;color:var(--ink);text-decoration:none;letter-spacing:.01em}
+.bar,main,footer{max-width:1360px;margin:0 auto;padding-left:var(--px);padding-right:var(--px)}
+.bar{padding-top:12px;padding-bottom:12px;display:flex;align-items:baseline;justify-content:space-between;gap:20px}
+.logo{font-family:Georgia,serif;font-size:1.4rem;color:var(--ink);text-decoration:none}
 .logo i{color:var(--acc)}
-nav{display:flex;gap:20px;overflow-x:auto;scrollbar-width:none}
-nav a{white-space:nowrap;color:var(--muted);text-decoration:none;font-size:.85rem;padding-bottom:2px;border-bottom:1px solid transparent}
+nav{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none}
+nav a{white-space:nowrap;color:var(--muted);text-decoration:none;font-size:.88rem;border-bottom:1px solid transparent}
 nav a:hover{color:var(--ink)}nav a.on{color:var(--ink);border-color:var(--acc)}
-main{max-width:960px;margin:0 auto;padding:8px 22px 56px}
+main{padding-top:8px;padding-bottom:56px}
 section{display:none}section.on{display:block}
-h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(2rem,5.5vw,3.1rem);line-height:1.1;letter-spacing:-.01em;margin:44px 0 10px}
-h2{font-family:Georgia,serif;font-weight:400;font-size:1.7rem;margin:38px 0 6px}
-.lead{color:var(--muted);max-width:600px;margin:0 0 26px}
+h1,h2,h3.s{font-family:Georgia,serif;font-weight:400}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:44px 0 10px}
+h2{font-size:1.8rem;margin:38px 0 6px}
+.lead{color:var(--muted);max-width:640px;margin:0 0 26px}
 .step{display:grid;grid-template-columns:34px 1fr;gap:6px 12px;padding:18px 0;border-top:1px solid var(--rule)}
 .step:first-of-type{border-top:1px solid var(--ink)}
 .n{font-family:Georgia,serif;color:var(--acc);font-size:1.1rem}
@@ -33,34 +34,57 @@ h2{font-family:Georgia,serif;font-weight:400;font-size:1.7rem;margin:38px 0 6px}
 .body{grid-column:2}
 select,input{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:10px 12px;width:100%;outline:none}
 select:focus,input:focus{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 18%,transparent)}
-.seg{display:inline-flex;border:1px solid var(--ink);border-radius:4px;overflow:hidden}
+#type{max-width:420px}
+.seg{display:inline-flex;border:1px solid var(--ink);border-radius:4px;overflow:hidden;flex-wrap:wrap}
 .seg label{padding:9px 18px;cursor:pointer;font-size:.92rem;border-right:1px solid var(--ink)}
 .seg label:last-child{border:0}
 .seg input{display:none}
-.seg input:checked+span{font-weight:600}
 .seg label:has(input:checked){background:var(--ink);color:var(--bg)}
-.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
 .filters label{font-size:.82rem;color:var(--muted);display:block;margin-bottom:4px}
 .hint{color:var(--muted);font-size:.9rem;margin:0}
-.go{background:var(--ink);color:var(--bg);border:0;border-radius:4px;padding:13px 30px;font:inherit;font-weight:600;cursor:pointer;margin:6px 0 0}
+.go{background:var(--ink);color:var(--bg);border:0;border-radius:4px;padding:13px 32px;font:inherit;font-weight:600;cursor:pointer;margin-top:6px}
 .go:hover{background:var(--acc);color:#fff}
 .link{background:none;border:0;color:var(--acc);cursor:pointer;font:inherit;padding:0;margin-left:14px;text-decoration:underline}
-.count{font-family:Georgia,serif;font-size:1.3rem;margin:34px 0 6px;padding-top:14px;border-top:1px solid var(--ink)}
+.count{font-family:Georgia,serif;font-size:1.35rem;margin:34px 0 6px;padding-top:14px;border-top:1px solid var(--ink)}
 .wrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:700px;font-size:.9rem}
-th{text-align:left;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 10px 8px 0;border-bottom:1px solid var(--ink)}
-td{padding:12px 10px 12px 0;border-bottom:1px solid var(--rule);vertical-align:top;font-variant-numeric:tabular-nums}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:.92rem}
+th{text-align:left;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 12px 8px 0;border-bottom:1px solid var(--ink)}
+td{padding:12px 12px 12px 0;border-bottom:1px solid var(--rule);vertical-align:top;font-variant-numeric:tabular-nums}
 .pn{font-weight:600}
 .g{font-size:.74rem;font-weight:600;border:1px solid currentColor;border-radius:3px;padding:1px 7px;white-space:nowrap}
 .g.rh{color:var(--ok)}.g.cm{color:var(--warn)}
-.sp{color:var(--muted);font-size:.82rem}
+.sp{color:var(--muted);font-size:.84rem}
 .fn{color:var(--muted);font-size:.82rem;margin-top:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;border-top:1px solid var(--ink)}
-.grid div{padding:16px 16px 18px 0;border-bottom:1px solid var(--rule)}
-.grid h3{font-family:Georgia,serif;font-weight:400;font-size:1.15rem;margin:0 0 4px}
-.grid p{margin:0;color:var(--muted);font-size:.9rem}
-.btn{display:inline-block;background:var(--ink);color:var(--bg);padding:12px 26px;border-radius:4px;text-decoration:none;font-weight:600}
-footer{max-width:960px;margin:0 auto;padding:18px 22px;border-top:1px solid var(--rule);color:var(--muted);font-size:.8rem}
+.tools{display:flex;gap:12px;margin:0 0 14px;flex-wrap:wrap}.tools>*{flex:1;min-width:200px;max-width:340px}
+.gl{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:clamp(20px,4vw,56px);border-top:1px solid var(--ink);padding-top:22px}
+.gl .list{display:flex;flex-direction:column;gap:2px}
+.gl button{text-align:left;background:none;border:0;border-left:2px solid var(--rule);padding:12px 14px;font:inherit;color:var(--muted);cursor:pointer}
+.gl button b{display:block;color:var(--ink);font-family:Georgia,serif;font-weight:400;font-size:1.08rem}
+.gl button span{font-size:.8rem}
+.gl button:hover{background:var(--card)}
+.gl button.on{border-color:var(--acc);background:var(--card)}
+.gl button.on b{color:var(--acc)}
+.det h3{font-family:Georgia,serif;font-weight:400;font-size:clamp(1.6rem,3vw,2.2rem);margin:0 0 6px;line-height:1.15}
+.det .pre{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);font-weight:600}
+.det p{max-width:700px}
+.det h4{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;margin:26px 0 8px;font-weight:600}
+.det ol{max-width:700px;padding-left:22px}.det li{margin:8px 0}
+.key{border-left:3px solid var(--acc);background:var(--card);padding:14px 18px;max-width:700px;margin:22px 0;font-family:Georgia,serif;font-size:1.1rem}
+.demo{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;max-width:700px}
+.demo .t{font-size:.78rem;color:var(--muted);margin-bottom:10px}
+.lot{display:grid;grid-template-columns:54px 1fr 70px;gap:10px;align-items:center;font-size:.86rem;margin:7px 0}
+.lot div.b{height:14px;background:var(--rule);border-radius:2px;position:relative}
+.lot div.b i{display:block;height:100%;border-radius:2px}
+.lot div.b u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.demo svg{width:100%;height:auto;display:block}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:6px}
+.cards>div{border:1px solid var(--rule);background:var(--card);border-radius:6px;padding:22px}
+.cards h3{font-family:Georgia,serif;font-weight:400;font-size:1.4rem;margin:0 0 6px}
+.price{font-family:Georgia,serif;font-size:2rem;margin:4px 0}
+.btn{display:inline-block;background:var(--ink);color:var(--bg);padding:12px 26px;border-radius:4px;text-decoration:none;font-weight:600;margin-top:8px}
+footer{border-top:1px solid var(--rule);padding-top:18px;padding-bottom:22px;color:var(--muted);font-size:.8rem}
+@media(max-width:760px){.gl{grid-template-columns:1fr}.gl .list{flex-direction:row;overflow-x:auto}.gl button{min-width:170px;border-left:0;border-bottom:2px solid var(--rule)}.gl button.on{border-color:var(--acc)}}
 </style>
 </head>
 <body>
@@ -72,133 +96,151 @@ footer{max-width:960px;margin:0 auto;padding:18px 22px;border-top:1px solid var(
 
 <section id="search">
 <h1>Find parts that survive radiation.</h1>
-<p class="lead">Choose a component type, decide between rad-hard and commercial parts, and narrow the results with optional filters.</p>
-
-<div class="step"><div class="n">1</div><h3>Component type</h3>
-<div class="body"><select id="type"></select></div></div>
-
-<div class="step"><div class="n">2</div><h3>Grade</h3>
-<div class="body"><div class="seg">
+<p class="lead">Choose a component family, decide between rad-hard and commercial parts, and narrow the results with optional filters.</p>
+<div class="step"><div class="n">1</div><h3>Component family</h3><div class="body"><select id="type"></select></div></div>
+<div class="step"><div class="n">2</div><h3>Grade</h3><div class="body"><div class="seg">
 <label><input type="radio" name="grade" value="both" checked><span>Both</span></label>
 <label><input type="radio" name="grade" value="rh"><span>Rad-hard only</span></label>
-<label><input type="radio" name="grade" value="cm"><span>Commercial only</span></label>
-</div></div></div>
-
-<div class="step"><div class="n">3</div><h3>Filters<small>all optional</small></h3>
-<div class="body">
-<p class="hint" id="hint">Select a component type to see its filters.</p>
-<div class="filters" id="filters"></div>
-</div></div>
-
-<div class="step"><div class="n">4</div><h3>Radiation needs<small>optional</small></h3>
-<div class="body"><div class="filters">
-<div><label for="rtid">Minimum TID (krad)</label><input id="rtid" type="number" min="0" placeholder="e.g. 50"></div>
-<div><label for="rsel">Minimum SEL-free LET (MeV·cm²/mg)</label><input id="rsel" type="number" min="0" placeholder="e.g. 37"></div>
-</div></div></div>
-
+<label><input type="radio" name="grade" value="cm"><span>Commercial only</span></label></div></div></div>
+<div class="step"><div class="n">3</div><h3>Filters<small>all optional</small></h3><div class="body">
+<p class="hint" id="hint">Select a component family to see its filters.</p><div class="filters" id="filters"></div></div></div>
+<div class="step"><div class="n">4</div><h3>Radiation need<small>optional</small></h3><div class="body"><div class="filters">
+<div><label for="rtid">Minimum TID (krad)</label><input id="rtid" type="number" min="0" placeholder="e.g. 50"></div></div></div></div>
 <button class="go" id="go">Search</button><button class="link" id="reset">Reset</button>
-
 <div id="res"></div>
 </section>
 
 <section id="guides">
 <h2>Test guides</h2>
-<p class="lead">Bias conditions, monitored parameters, setup and pass criteria for each component family.</p>
-<div class="grid">
-<div><h3>Op-amps</h3><p>Offset, bias current, bandwidth drift, ELDRS. Draft.</p></div>
-<div><h3>Voltage regulators</h3><p>Dropout, transients, SET and SEL monitoring. Draft.</p></div>
-<div><h3>ADCs</h3><p>INL, DNL and SEFI recovery. Draft.</p></div>
-<div><h3>FPGAs</h3><p>Configuration upsets and scrubbing. Planned.</p></div>
-</div>
+<p class="lead">Short, practical lessons from real radiation campaigns. Choose a topic.</p>
+<div class="gl"><div class="list" id="gl"></div><div class="det" id="gd"></div></div>
 </section>
 
 <section id="labs">
 <h2>Facilities</h2>
-<p class="lead">Where to test. Confirm beam details and availability with each facility.</p>
-<div class="wrap"><table><thead><tr><th>Facility</th><th>Location</th><th>Radiation</th></tr></thead><tbody>
-<tr><td class="pn">UCLouvain CRC</td><td>Belgium</td><td>Heavy ions, protons</td></tr>
-<tr><td class="pn">RADEF</td><td>Finland</td><td>Heavy ions, protons</td></tr>
-<tr><td class="pn">PSI PIF</td><td>Switzerland</td><td>Protons</td></tr>
-<tr><td class="pn">CERN IRRAD</td><td>Switzerland</td><td>Protons</td></tr>
-<tr><td class="pn">ESA ESTEC</td><td>Netherlands</td><td>Co-60 gamma</td></tr>
-<tr><td class="pn">Texas A&amp;M Cyclotron</td><td>USA</td><td>Heavy ions, protons</td></tr>
-</tbody></table></div>
+<p class="lead">Radiation test facilities from the RADNEXT directory. Contact each facility for beam details, availability and access conditions.</p>
+<div class="tools"><input id="fq" placeholder="Search facility, country or institute"><select id="fr"><option value="">All radiation types</option><option>proton</option><option>heavy ion</option><option>neutron</option><option>gamma</option><option>electron</option><option>x-ray</option><option>laser</option><option>muon</option></select></div>
+<div class="wrap"><table><thead><tr><th>Institute</th><th>Country</th><th>Facility</th><th>Radiation</th></tr></thead><tbody id="ft"></tbody></table></div>
+<p class="fn" id="fc"></p>
 </section>
 
 <section id="consult">
 <h2>Consultation</h2>
-<p class="lead">Test planning, part selection and test setup review with an experienced rad-hard electronics engineer.</p>
-<a class="btn" href="#consult">Book a call</a>
-<p class="fn">Booking link coming soon. Connect Cal.com or Calendly here.</p>
+<p class="lead">Radiation test planning, part selection and test setup review with an experienced rad-hard electronics engineer.</p>
+<div class="cards">
+<div><h3>Intro call</h3><div class="price">Free</div><p class="sp">30 minutes to understand your project and tell you what is realistic.</p><a class="btn" href="#consult">Book free intro call</a></div>
+<div><h3>Expert session</h3><div class="price">500 <span style="font-size:1rem">per hour</span></div><p class="sp">Deep dive on test plans, lot strategy, part selection or results review.</p><a class="btn" href="#consult">Book a session</a></div>
+</div>
+<p class="fn">Booking links coming soon. Connect Cal.com or Calendly here.</p>
 </section>
 
 </main>
-<footer>SEEker prototype. All part data shown is placeholder content, not real test results.</footer>
+<footer class="bar" style="display:block">SEEker prototype. Part data and guide figures are illustrative placeholders, not real test results.</footer>
 
 <script>
 var $=function(i){return document.getElementById(i)};
+function F(k,l,s,u,t,o){return{k:k,l:l,s:s,u:u,t:t,o:o}}
 var T={
-"Voltage regulator":[
- {k:"vin",l:"Max input voltage ≥",s:"Vin max",u:" V",t:"min"},
- {k:"iout",l:"Output current ≥",s:"Iout",u:" A",t:"min"},
- {k:"vout",l:"Output voltage",s:"Vout",u:" V",t:"sel",o:["1.2","1.8","3.3","5","Adjustable"]},
- {k:"topo",l:"Topology",s:"Type",u:"",t:"sel",o:["LDO","Switching"]}],
-"Op-amp":[
- {k:"gbw",l:"Gain-bandwidth ≥",s:"GBW",u:" MHz",t:"min"},
- {k:"vs",l:"Max supply voltage ≥",s:"Vs max",u:" V",t:"min"},
- {k:"vos",l:"Input offset ≤",s:"Vos",u:" mV",t:"max"},
- {k:"rr",l:"Rail-to-rail output",s:"RRO",u:"",t:"sel",o:["Yes","No"]}],
-"ADC":[
- {k:"bits",l:"Resolution ≥",s:"Res.",u:" bit",t:"min"},
- {k:"msps",l:"Sample rate ≥",s:"Rate",u:" MSPS",t:"min"},
- {k:"ifc",l:"Interface",s:"I/F",u:"",t:"sel",o:["SPI","Parallel","LVDS"]}],
-"FPGA":[
- {k:"cells",l:"Logic cells ≥",s:"Logic",u:" k",t:"min"},
- {k:"tech",l:"Technology",s:"Tech",u:"",t:"sel",o:["Flash","SRAM","Antifuse"]}]
+"Voltage regulator":[F("vin","Max input voltage ≥","Vin max"," V","min"),F("iout","Output current ≥","Iout"," A","min"),F("topo","Topology","Type","","sel",["LDO","Switching"])],
+"DC-DC converter":[F("vin","Max input voltage ≥","Vin max"," V","min"),F("iout","Output current ≥","Iout"," A","min"),F("topo","Topology","Type","","sel",["Buck","Boost","Isolated"])],
+"Voltage reference":[F("vref","Output voltage","Vref"," V","sel",["1.25","2.5","5","10"]),F("acc","Initial accuracy ≤","Acc."," %","max")],
+"Op-amp":[F("gbw","Gain-bandwidth ≥","GBW"," MHz","min"),F("vs","Max supply voltage ≥","Vs max"," V","min"),F("vos","Input offset ≤","Vos"," mV","max")],
+"Comparator":[F("tpd","Propagation delay ≤","tpd"," ns","max"),F("vs","Max supply voltage ≥","Vs max"," V","min")],
+"ADC":[F("bits","Resolution ≥","Res."," bit","min"),F("msps","Sample rate ≥","Rate"," MSPS","min"),F("ifc","Interface","I/F","","sel",["SPI","Parallel","LVDS"])],
+"DAC":[F("bits","Resolution ≥","Res."," bit","min"),F("msps","Update rate ≥","Rate"," MSPS","min"),F("ifc","Interface","I/F","","sel",["SPI","Parallel","LVDS"])],
+"FPGA":[F("cells","Logic cells ≥","Logic"," k","min"),F("tech","Technology","Tech","","sel",["Flash","SRAM","Antifuse"])],
+"Microcontroller / processor":[F("mhz","Clock ≥","Clock"," MHz","min"),F("core","Core","Core","","sel",["ARM Cortex-M","ARM Cortex-R","RISC-V","LEON","Other"])],
+"Memory":[F("kind","Memory type","Type","","sel",["SRAM","DRAM","Flash","FRAM","MRAM","EEPROM"]),F("mb","Density ≥","Density"," Mbit","min")],
+"Interface / transceiver":[F("std","Standard","Std","","sel",["RS-485","CAN","LVDS","SpaceWire","Ethernet"]),F("mbps","Data rate ≥","Rate"," Mbps","min")],
+"Power MOSFET / GaN":[F("vds","Max Vds ≥","Vds"," V","min"),F("tech","Technology","Tech","","sel",["Si MOSFET","SiC","GaN"])],
+"Gate driver":[F("ig","Peak drive current ≥","Idrive"," A","min"),F("iso","Isolated","Isolated","","sel",["Yes","No"])],
+"Analog switch / mux":[F("ch","Channels ≥","Ch."," ","min"),F("ron","On-resistance ≤","Ron"," Ω","max")],
+"Clock / oscillator / PLL":[F("mhz","Frequency ≥","Freq"," MHz","min"),F("kind","Type","Type","","sel",["Oscillator","PLL","Clock buffer"])],
+"Isolator / optocoupler":[F("kv","Isolation ≥","Isol."," kV","min"),F("mbps","Data rate ≥","Rate"," Mbps","min")],
+"Current sense / power monitor":[F("vs","Max supply voltage ≥","Vs max"," V","min"),F("acc","Accuracy ≤","Acc."," %","max")],
+"Temperature sensor":[F("acc","Accuracy ≤","Acc."," °C","max"),F("ifc","Interface","I/F","","sel",["Analog","I2C","SPI"])],
+"Load switch / eFuse":[F("vin","Max input voltage ≥","Vin max"," V","min"),F("iout","Current ≥","Iout"," A","min")]
 };
-var D=[
-{p:"EXAMPLE-REG-01",m:"Maker A",t:"Voltage regulator",g:"rh",tid:300,sel:80,src:"Manufacturer",a:{vin:14,iout:3,vout:"Adjustable",topo:"LDO"}},
-{p:"EXAMPLE-REG-02",m:"Maker B",t:"Voltage regulator",g:"cm",tid:75,sel:40,src:"Independent lab",a:{vin:6,iout:1.5,vout:"3.3",topo:"LDO"}},
-{p:"EXAMPLE-REG-03",m:"Maker C",t:"Voltage regulator",g:"cm",tid:20,sel:15,src:"User submitted",a:{vin:36,iout:2,vout:"5",topo:"Switching"}},
-{p:"EXAMPLE-REG-04",m:"Maker D",t:"Voltage regulator",g:"rh",tid:100,sel:60,src:"Manufacturer",a:{vin:12,iout:5,vout:"1.8",topo:"Switching"}},
-{p:"EXAMPLE-OA-01",m:"Maker E",t:"Op-amp",g:"rh",tid:300,sel:85,src:"Manufacturer",a:{gbw:20,vs:36,vos:0.5,rr:"Yes"}},
-{p:"EXAMPLE-OA-02",m:"Maker F",t:"Op-amp",g:"cm",tid:100,sel:60,src:"Independent lab",a:{gbw:10,vs:40,vos:0.3,rr:"No"}},
-{p:"EXAMPLE-OA-03",m:"Maker G",t:"Op-amp",g:"cm",tid:30,sel:20,src:"Manufacturer",a:{gbw:50,vs:12,vos:1,rr:"Yes"}},
-{p:"EXAMPLE-ADC-01",m:"Maker H",t:"ADC",g:"rh",tid:100,sel:75,src:"Manufacturer",a:{bits:14,msps:125,ifc:"LVDS"}},
-{p:"EXAMPLE-ADC-02",m:"Maker I",t:"ADC",g:"cm",tid:50,sel:37,src:"Independent lab",a:{bits:16,msps:1,ifc:"SPI"}},
-{p:"EXAMPLE-FPGA-01",m:"Maker J",t:"FPGA",g:"rh",tid:300,sel:100,src:"Manufacturer",a:{cells:150,tech:"Antifuse"}},
-{p:"EXAMPLE-FPGA-02",m:"Maker K",t:"FPGA",g:"cm",tid:60,sel:30,src:"Independent lab",a:{cells:100,tech:"Flash"}}];
+var D=[],N=0;
+function r(t,g,tid,sel,v){var f=T[t],a={};f.forEach(function(x,i){a[x.k]=v[i]});N++;
+D.push({p:"EXAMPLE-"+t.replace(/[^A-Za-z]/g,"").slice(0,4).toUpperCase()+"-"+(N%2?"01":"02"),m:"Maker "+String.fromCharCode(65+N%12),t:t,g:g,tid:tid,sel:sel,src:["Manufacturer","Independent lab","User submitted"][N%3],a:a})}
+r("Voltage regulator","rh",300,80,[14,3,"LDO"]);r("Voltage regulator","cm",75,40,[6,1.5,"LDO"]);r("Voltage regulator","cm",20,15,[36,2,"Switching"]);
+r("DC-DC converter","rh",100,60,[12,5,"Buck"]);r("DC-DC converter","cm",40,30,[28,3,"Isolated"]);
+r("Voltage reference","rh",200,70,["2.5",0.05]);r("Voltage reference","cm",60,25,["5",0.1]);
+r("Op-amp","rh",300,85,[20,36,0.5]);r("Op-amp","cm",100,60,[10,40,0.3]);r("Op-amp","cm",30,20,[50,12,1]);
+r("Comparator","rh",150,70,[20,36]);r("Comparator","cm",50,30,[8,5.5]);
+r("ADC","rh",100,75,[14,125,"LVDS"]);r("ADC","cm",50,37,[16,1,"SPI"]);
+r("DAC","rh",100,70,[16,10,"SPI"]);r("DAC","cm",40,25,[12,50,"Parallel"]);
+r("FPGA","rh",300,100,[150,"Antifuse"]);r("FPGA","cm",60,30,[100,"Flash"]);
+r("Microcontroller / processor","rh",100,80,[200,"LEON"]);r("Microcontroller / processor","cm",30,20,[120,"ARM Cortex-M"]);
+r("Memory","rh",100,75,["MRAM",16]);r("Memory","cm",20,15,["Flash",512]);r("Memory","cm",50,30,["FRAM",4]);
+r("Interface / transceiver","rh",300,80,["RS-485",20]);r("Interface / transceiver","cm",50,35,["CAN",5]);
+r("Power MOSFET / GaN","rh",100,40,[100,"Si MOSFET"]);r("Power MOSFET / GaN","cm",200,60,[200,"GaN"]);
+r("Gate driver","rh",100,60,[4,"Yes"]);r("Gate driver","cm",30,20,[2,"No"]);
+r("Analog switch / mux","rh",300,80,[8,10]);r("Analog switch / mux","cm",50,30,[4,5]);
+r("Clock / oscillator / PLL","rh",100,70,[200,"PLL"]);r("Clock / oscillator / PLL","cm",60,35,[50,"Oscillator"]);
+r("Isolator / optocoupler","rh",100,60,[3,25]);r("Isolator / optocoupler","cm",20,15,[5,100]);
+r("Current sense / power monitor","rh",150,70,[60,0.5]);r("Current sense / power monitor","cm",40,25,[26,0.2]);
+r("Temperature sensor","rh",100,65,[0.5,"I2C"]);r("Temperature sensor","cm",30,20,[1,"Analog"]);
+r("Load switch / eFuse","rh",100,60,[28,5]);r("Load switch / eFuse","cm",50,30,[12,3]);
+
 var sel=$("type");
-sel.innerHTML='<option value="">Choose a component type</option>'+Object.keys(T).map(function(k){return"<option>"+k+"</option>"}).join("");
+sel.innerHTML='<option value="">Choose a component family</option>'+Object.keys(T).map(function(k){return"<option>"+k+"</option>"}).join("");
 sel.onchange=function(){
- var f=T[sel.value];
- $("hint").style.display=f?"none":"block";
+ var f=T[sel.value];$("hint").style.display=f?"none":"block";
  $("filters").innerHTML=(f||[]).map(function(x){
   var c=x.t==="sel"?'<select id="f_'+x.k+'"><option value="">Any</option>'+x.o.map(function(o){return"<option>"+o+"</option>"}).join("")+"</select>":'<input id="f_'+x.k+'" type="number" step="any" placeholder="Any">';
-  return'<div><label for="f_'+x.k+'">'+x.l+(x.t!=="sel"&&x.u?" ("+x.u.trim()+")":"")+"</label>"+c+"</div>"}).join("");
+  return'<div><label for="f_'+x.k+'">'+x.l+(x.t!=="sel"&&x.u.trim()?" ("+x.u.trim()+")":"")+"</label>"+c+"</div>"}).join("");
 };
 function search(){
- if(!sel.value){$("res").innerHTML='<p class="count">Choose a component type first.</p>';return}
- var g=document.querySelector('input[name=grade]:checked').value,f=T[sel.value],
- tid=parseFloat($("rtid").value),ls=parseFloat($("rsel").value);
+ if(!sel.value){$("res").innerHTML='<p class="count">Choose a component family first.</p>';return}
+ var g=document.querySelector('input[name=grade]:checked').value,f=T[sel.value],tid=parseFloat($("rtid").value);
  var r=D.filter(function(d){
-  if(d.t!==sel.value)return false;
-  if(g!=="both"&&d.g!==g)return false;
-  if(!isNaN(tid)&&d.tid<tid)return false;
-  if(!isNaN(ls)&&d.sel<ls)return false;
-  return f.every(function(x){
-   var v=$("f_"+x.k).value;if(v==="")return true;
-   if(x.t==="sel")return String(d.a[x.k])===v;
-   v=parseFloat(v);if(isNaN(v))return true;
+  if(d.t!==sel.value||(g!=="both"&&d.g!==g)||(!isNaN(tid)&&d.tid<tid))return false;
+  return f.every(function(x){var v=$("f_"+x.k).value;if(v==="")return true;
+   if(x.t==="sel")return String(d.a[x.k])===v;v=parseFloat(v);if(isNaN(v))return true;
    return x.t==="min"?d.a[x.k]>=v:d.a[x.k]<=v})}).sort(function(a,b){return b.tid-a.tid});
  var rows=r.map(function(d){
-  var sp=f.map(function(x){return x.s+" "+d.a[x.k]+x.u}).join(" · ");
-  return'<tr><td><span class="pn">'+d.p+'</span><br><span class="sp">'+d.m+'</span></td><td><span class="g '+d.g+'">'+(d.g==="rh"?"Rad-hard":"Commercial")+'</span></td><td class="sp">'+sp+'</td><td>'+d.tid+' krad</td><td>'+d.sel+'</td><td class="sp">'+d.src+'</td></tr>'}).join("");
- $("res").innerHTML='<div class="count">'+r.length+(r.length===1?" result":" results")+'</div>'+
- (r.length?'<div class="wrap"><table><thead><tr><th>Part</th><th>Grade</th><th>Key specs</th><th>TID</th><th>SEL LET</th><th>Data source</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="fn">Placeholder data. SEL LET in MeV·cm²/mg. Results sorted by TID.</p>':'<p class="hint">No parts match. Try removing a filter.</p>');
+  return'<tr><td><span class="pn">'+d.p+'</span><br><span class="sp">'+d.m+'</span></td><td><span class="g '+d.g+'">'+(d.g==="rh"?"Rad-hard":"Commercial")+'</span></td><td class="sp">'+f.map(function(x){return x.s+" "+d.a[x.k]+x.u}).join(" · ")+'</td><td>'+d.tid+' krad</td><td>'+d.sel+'</td><td class="sp">'+d.src+'</td></tr>'}).join("");
+ $("res").innerHTML='<div class="count">'+r.length+(r.length===1?" result":" results")+'</div>'+(r.length?'<div class="wrap"><table><thead><tr><th>Part</th><th>Grade</th><th>Key specs</th><th>TID</th><th>SEL LET</th><th>Data source</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="fn">Placeholder data. SEL LET in MeV·cm²/mg. Sorted by TID.</p>':'<p class="hint">No parts match. Try removing a filter.</p>');
 }
 $("go").onclick=search;
-$("reset").onclick=function(){sel.value="";sel.onchange();$("rtid").value="";$("rsel").value="";document.querySelector('input[name=grade][value=both]').checked=true;$("res").innerHTML=""};
+$("reset").onclick=function(){sel.value="";sel.onchange();$("rtid").value="";document.querySelector('input[name=grade][value=both]').checked=true;$("res").innerHTML=""};
+
+var G=[
+{id:"lot",t:"Lot-to-lot variability",s:"Why the lot number matters",h:function(){
+ var L=[["Lot A",40],["Lot B",95],["Lot C",150],["Lot D",70]],req=50,mx=170;
+ var bars=L.map(function(l){return'<div class="lot"><span>'+l[0]+'</span><div class="b"><i style="width:'+l[1]/mx*100+'%;background:var(--'+(l[1]>=req*1.5?"ok":l[1]>=req?"warn":"bad")+')"></i><u style="left:'+req/mx*100+'%"></u></div><span>'+l[1]+' krad</span></div>'}).join("");
+ return'<div class="pre">Premium guide</div><h3>Different lots, different results</h3><p>The same part number can come from wafer lots that tolerate very different radiation doses. A part that passed in one lot says little about the next one you buy.</p>'+
+ '<div class="demo"><div class="t">Illustrative: dose at failure for four lots of one commercial part. The black line is a 50 krad requirement.</div>'+bars+'</div>'+
+ '<h4>Recommended strategy</h4><ol><li>Pick a commercial part with encouraging public data.</li><li>Buy the whole program quantity from one lot, ideally one already tested. For example 10,000 pieces.</li><li>Irradiate a small sample from that exact lot to confirm it passes.</li><li>Record the lot and date code, and keep lots from mixing in production.</li><li>If the lot changes, test again.</li></ol>'+
+ '<div class="key">One lot, one test campaign, then buy with confidence.</div>'}},
+{id:"reg",t:"Voltage regulators",s:"Drift, bias and power cycling",h:function(){
+ return'<div class="pre">Premium guide</div><h3>Voltage regulators drift. Plan for it.</h3><p>Under dose, regulator output voltage, quiescent current and dropout slowly move away from their initial values, often with the worst case at a particular bias. The goal is to catch the drift before it breaks the system.</p>'+
+ '<div class="demo"><div class="t">Illustrative: output voltage deviation versus dose, with a power cycle every 20 krad.</div><svg viewBox="0 0 400 150" role="img" aria-label="Output voltage deviation versus dose, with small recoveries at power cycles"><line x1="30" y1="75" x2="390" y2="75" stroke="var(--rule)"/><line x1="30" y1="30" x2="390" y2="30" stroke="var(--bad)" stroke-dasharray="4 3"/><line x1="30" y1="120" x2="390" y2="120" stroke="var(--bad)" stroke-dasharray="4 3"/><polyline fill="none" stroke="var(--acc)" stroke-width="2" points="30,75 90,82 92,79 150,88 152,84 210,95 212,91 270,100 272,97 330,106 332,103 390,110"/><g fill="var(--ink)"><circle cx="91" cy="80" r="3"/><circle cx="151" cy="86" r="3"/><circle cx="211" cy="93" r="3"/><circle cx="271" cy="98" r="3"/><circle cx="331" cy="104" r="3"/></g><text x="30" y="145" font-size="10" fill="var(--muted)">0 krad</text><text x="350" y="145" font-size="10" fill="var(--muted)">100 krad</text><text x="34" y="26" font-size="10" fill="var(--bad)">upper limit</text><text x="34" y="132" font-size="10" fill="var(--bad)">lower limit</text></svg></div>'+
+ '<h4>Recommended approach</h4><ol><li>Irradiate under worst-case bias and load, and test both powered and unpowered samples.</li><li>Monitor output voltage, quiescent current and input current continuously.</li><li>Switch power off and on every so often to reveal effects that only show at start-up, and to see partial recovery.</li><li>Run a final post-irradiation check, then an anneal check.</li><li>Set the pass limit with margin, because lots differ.</li></ol>'+
+ '<div class="key">Watch the trend, not just the final value.</div>'}}
+];
+["Op-amps","ADCs","FPGAs","Memories"].forEach(function(n){G.push({id:n,t:n,s:"In preparation",h:function(){return'<div class="pre">Premium guide</div><h3>'+n+'</h3><p>This guide is in preparation.</p>'}})});
+$("gl").innerHTML=G.map(function(g){return'<button data-id="'+g.id+'"><b>'+g.t+'</b><span>'+g.s+'</span></button>'}).join("");
+function showG(id){
+ var g=G.filter(function(x){return x.id===id})[0]||G[0];
+ $("gd").innerHTML=g.h();
+ document.querySelectorAll("#gl button").forEach(function(b){b.classList.toggle("on",b.dataset.id===g.id)});
+}
+$("gl").onclick=function(e){var b=e.target.closest("button");if(b)showG(b.dataset.id)};
+showG("lot");
+
+var FL="ATRON Metrology|France|FELIX|Electron|ANSTO|Australia|Centre for Accelerator Science|Proton, heavy ion|CNA|Spain|PROTON facility 1|Proton|CNA|Spain|PROTON facility 2|Proton, deuteron|CNA|Spain|RadLab|Gamma (Co-60)|CERN|Switzerland|CHARM|Mixed field|CERN|Switzerland|SPS North Area|Heavy ions (Pb)|CERN|Switzerland|HEARTS@CERN|Heavy ions (Pb)|CNAO|Italy|XPR|Proton, carbon ions|CLPU|Spain|VEGA|Proton, electron, X-ray|ENEA|Italy|Calliope Gamma Irradiation Facility|Gamma (Co-60)|ENEA|Italy|FNG Frascati Neutron Generator|Neutron|ESRF|France|ESRF|X-ray|GANIL|France|SPIRAL2 NFS|Neutron, proton, ions|GANIL|France|GANIL G4 and D1|Heavy ions|GSI Darmstadt|Germany|UNILAC (microprobe)|Heavy ions|GSI Helmholtz Centre|Germany|SIS18|Heavy ions|HZB|Germany|HZB cyclotron|Proton|HZB|Germany|Kobaltquelle|Gamma (Co-60)|HZDR|Germany|DRACO|Proton (laser-plasma)|HZDR|Germany|nELBE|Neutron|HZDR|Germany|eELBE|Electron|HZDR|Germany|gELBE|Gamma|HollandPTC|Netherlands|R&D beamline|Proton|ILL|France|TENIS|Neutron|INP Polish Academy of Sciences|Poland|AIC-144 (room 1)|Proton|INP Polish Academy of Sciences|Poland|AIC-144 (room ETC)|Proton|University of Bern (LHEP)|Switzerland|Bern Cyclotron|Proton|LPSC|France|GENEPI2|Neutron|METU Space and Accelerator Technologies|Turkey|TENMAK NUKEN PAF|Proton|Nuclear Physics Institute CAS|Czech Republic|CANAM fast neutron generators|Neutron|Nuclear Physics Institute CAS|Czech Republic|CANAM cyclotrons|Proton|Nuclear Physics Institute CAS|Czech Republic|CANAM cyclotrons|H+, D+, 3He, 4He|PARTREC|Netherlands|AGORFIRM|He, C, O, Ne ions|PARTREC|Netherlands|Proton irradiation|Proton|Paul Scherrer Institute (PSI)|Switzerland|Proton Facility|Proton|PTB|Germany|High flux neutron beam|Neutron|PTB|Germany|Neutron reference fields (ISO 8529)|Neutron|Radtest Ltd|United Kingdom|SEREEL2|Laser (IR)|Tau Systems|USA|TAU Labs|Electron|TRAD|France|GAMRAY (ISO/IEC 17025)|Gamma (Co-60)|TRAD|France|HELIOS|Laser (Nd:YAG)|TRIUMF|Canada|BL1B|Neutron|TRIUMF|Canada|BL1B|Proton|TRIUMF|Canada|TNF|Neutron|UCLouvain|Belgium|Gamma Irradiation Facility (GIF)|Gamma (Co-60)|UCLouvain|Belgium|Neutron Lines (NIF)|Neutron|UCLouvain|Belgium|Proton Beam Line (LIF)|Proton|UCLouvain|Belgium|Heavy Ion Facility (HIF)|Heavy ions|UKRI-STFC|United Kingdom|EMMA|Neutron|UKRI-STFC RAL|United Kingdom|RAL-RIKEN|Muon|UKRI-STFC RAL|United Kingdom|ChipIr|Neutron|UKRI-STFC RAL|United Kingdom|ISIS Neutron and Muon Source|Neutron, muon|Université Jean Monnet|France|PETRA|X-ray|University of Jyväskylä|Finland|Proton facility K-130|Proton|University of Jyväskylä|Finland|Heavy ions facility K-130|Heavy ions|Uppsala University|Sweden|NESSA|Neutron".split("|"),FD=[];
+for(var i=0;i<FL.length;i+=4)FD.push(FL.slice(i,i+4));
+function fdraw(){
+ var q=$("fq").value.toLowerCase(),k=$("fr").value.toLowerCase();
+ var x=FD.filter(function(d){var s=d.join(" ").toLowerCase();return(!q||s.indexOf(q)>-1)&&(!k||d[3].toLowerCase().indexOf(k)>-1)});
+ $("ft").innerHTML=x.map(function(d){return'<tr><td>'+d[0]+'</td><td>'+d[1]+'</td><td class="pn">'+d[2]+'</td><td class="sp">'+d[3]+'</td></tr>'}).join("")||'<tr><td colspan="4">No facilities found.</td></tr>';
+ $("fc").textContent=x.length+" of "+FD.length+" facilities. Source: RADNEXT facilities directory (CERN).";
+}
+$("fq").oninput=fdraw;$("fr").onchange=fdraw;fdraw();
+
 function route(){
  var id=(location.hash||"#search").slice(1);if(!$(id))id="search";
  document.querySelectorAll("section").forEach(function(s){s.classList.toggle("on",s.id===id)});
