@@ -81,7 +81,12 @@ td{padding:12px 12px 12px 0;border-bottom:1px solid var(--rule);vertical-align:t
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:6px}
 .cards>div{border:1px solid var(--rule);background:var(--card);border-radius:6px;padding:22px}
 .cards h3{font-family:Georgia,serif;font-weight:400;font-size:1.4rem;margin:0 0 6px}
+.cards ul{padding-left:18px;margin:10px 0;color:var(--muted);font-size:.92rem}
 .price{font-family:Georgia,serif;font-size:2rem;margin:4px 0}
+.price small{font-size:1rem;color:var(--muted)}
+.sub{font-size:.8rem;color:var(--muted);margin:0 0 8px}
+.soon{font-size:.72rem;font-weight:600;border:1px solid var(--muted);color:var(--muted);border-radius:3px;padding:1px 7px;margin-left:8px;vertical-align:middle}
+h3.s2{font-family:Georgia,serif;font-weight:400;font-size:1.3rem;margin:34px 0 4px}
 .btn{display:inline-block;background:var(--ink);color:var(--bg);padding:12px 26px;border-radius:4px;text-decoration:none;font-weight:600;margin-top:8px}
 footer{border-top:1px solid var(--rule);padding-top:18px;padding-bottom:22px;color:var(--muted);font-size:.8rem}
 @media(max-width:760px){.gl{grid-template-columns:1fr}.gl .list{flex-direction:row;overflow-x:auto}.gl button{min-width:170px;border-left:0;border-bottom:2px solid var(--rule)}.gl button.on{border-color:var(--acc)}}
@@ -90,7 +95,7 @@ footer{border-top:1px solid var(--rule);padding-top:18px;padding-bottom:22px;col
 <body>
 <header><div class="bar">
 <a class="logo" href="#search">SEE<i>ker</i></a>
-<nav id="nav"><a href="#search">Search</a><a href="#guides">Test guides</a><a href="#labs">Facilities</a><a href="#consult">Consultation</a></nav>
+<nav id="nav"><a href="#search">Search</a><a href="#guides">Test guides</a><a href="#labs">Facilities</a><a href="#consult">Consultation</a><a href="#pricing">Pricing</a></nav>
 </div></header>
 <main>
 
@@ -102,10 +107,11 @@ footer{border-top:1px solid var(--rule);padding-top:18px;padding-bottom:22px;col
 <label><input type="radio" name="grade" value="both" checked><span>Both</span></label>
 <label><input type="radio" name="grade" value="rh"><span>Rad-hard only</span></label>
 <label><input type="radio" name="grade" value="cm"><span>Commercial only</span></label></div></div></div>
-<div class="step"><div class="n">3</div><h3>Filters<small>all optional</small></h3><div class="body">
+<div class="step"><div class="n">3</div><h3>Filters<small>all optional, they change with the family</small></h3><div class="body">
 <p class="hint" id="hint">Select a component family to see its filters.</p><div class="filters" id="filters"></div></div></div>
 <div class="step"><div class="n">4</div><h3>Radiation need<small>optional</small></h3><div class="body"><div class="filters">
-<div><label for="rtid">Minimum TID (krad)</label><input id="rtid" type="number" min="0" placeholder="e.g. 50"></div></div></div></div>
+<div><label for="rtid">Minimum TID (krad)</label><input id="rtid" type="number" min="0" placeholder="e.g. 50"></div>
+<div><label for="rsel">Minimum SEL LET (MeV·cm²/mg)</label><input id="rsel" type="number" min="0" placeholder="e.g. 60"></div></div></div></div>
 <button class="go" id="go">Search</button><button class="link" id="reset">Reset</button>
 <div id="res"></div>
 </section>
@@ -128,10 +134,28 @@ footer{border-top:1px solid var(--rule);padding-top:18px;padding-bottom:22px;col
 <h2>Consultation</h2>
 <p class="lead">Radiation test planning, part selection and test setup review with an experienced rad-hard electronics engineer.</p>
 <div class="cards">
-<div><h3>Intro call</h3><div class="price">Free</div><p class="sp">30 minutes to understand your project and tell you what is realistic.</p><a class="btn" href="#consult">Book free intro call</a></div>
-<div><h3>Expert session</h3><div class="price">500 <span style="font-size:1rem">per hour</span></div><p class="sp">Deep dive on test plans, lot strategy, part selection or results review.</p><a class="btn" href="#consult">Book a session</a></div>
+<div><h3>Intro call</h3><div class="price">Free</div><p class="sub">€0</p><p class="sp">30 minutes to understand your project and tell you what is realistic.</p><a class="btn" href="#consult">Book free intro call</a></div>
+<div><h3>Expert session</h3><div class="price">€500 <small>per hour</small></div><p class="sub">or 500 CHF per hour</p><p class="sp">Deep dive on test plans, lot strategy, part selection or results review.</p><a class="btn" href="#consult">Book a session</a></div>
 </div>
 <p class="fn">Booking links coming soon. Connect Cal.com or Calendly here.</p>
+</section>
+
+<section id="pricing">
+<h2>Pricing</h2>
+<p class="lead">The database is free. Guides and expert help are paid. Prices in euros, excluding VAT.</p>
+<h3 class="s2">Platform plans</h3>
+<div class="cards">
+<div><h3>Free</h3><div class="price">€0</div><p class="sub">always</p><ul><li>Part search with all filters</li><li>Facilities directory</li><li>One sample test guide</li></ul></div>
+<div><h3>Pro<span class="soon">coming soon</span></h3><div class="price">€25 <small>per month</small></div><p class="sub">or €250 per year, 2 months free</p><ul><li>All premium test guides</li><li>Full report links and notes</li><li>CSV export and saved searches</li></ul></div>
+<div><h3>Team<span class="soon">coming soon</span></h3><div class="price">€150 <small>per month</small></div><p class="sub">5 seats</p><ul><li>Everything in Pro</li><li>Shared part lists</li><li>Priority data requests</li></ul></div>
+</div>
+<h3 class="s2">Expert services</h3>
+<div class="cards">
+<div><h3>Intro call</h3><div class="price">Free</div><p class="sub">30 minutes</p></div>
+<div><h3>Expert session</h3><div class="price">€500 <small>per hour</small></div><p class="sub">or 500 CHF per hour</p></div>
+<div><h3>Fixed packages</h3><div class="price">from €1,000</div><p class="sub">part selection review, test plan review</p><p class="sp">Test campaign support is quoted per project.</p></div>
+</div>
+<p class="fn">Platform plans are not open yet. Prices may change before launch.</p>
 </section>
 
 </main>
@@ -140,16 +164,27 @@ footer{border-top:1px solid var(--rule);padding-top:18px;padding-bottom:22px;col
 <script>
 var $=function(i){return document.getElementById(i)};
 var SHEET="18vYYg6wzVsqUy8ps3kYpPhzPfFSXm1VQ8KTdLVzpaWA";
-var BASE={p:["part number","part"],m:["manufacturer","maker"],g:["grade"],tid:["tid","tid (krad)"],sel:["sel let","sel lat","sel"],src:["data source","source"],link:["report link","link"],lot:["lot / date code","lot"],notes:["notes","note"]};
+var BASE={p:["part number","part"],m:["manufacturer","maker"],g:["grade"],tid:["tid","tid (krad)"],sel:["sel let","sel lat","sel"],src:["data source","source"],link:["report link","link"],notes:["notes","note"]};
 var T={
 "LDO":{tab:"LDOs",f:[
  {k:"vin",h:["vin max","vin max (v)","vin","input voltage"],l:"Max input voltage ≥",s:"Vin max",u:" V",t:"min"},
  {k:"iout",h:["iout (a)","iout","output current"],l:"Output current ≥",s:"Iout",u:" A",t:"min"}]},
 "FPGA":{tab:"FPGAs",f:[
  {k:"cells",h:["logic cells (k)","logic cells","logic elements"],l:"Logic cells ≥",s:"Logic",u:" k",t:"min"},
- {k:"tech",h:["technology","tech"],l:"Technology",s:"Tech",u:"",t:"sel"}]}
+ {k:"tech",h:["technology","tech"],l:"Technology",s:"Tech",u:"",t:"sel"}]},
+"Op-amp":{tab:"Op-amps",f:[
+ {k:"gbw",h:["gbw (mhz)","gbw","bandwidth"],l:"Gain bandwidth ≥",s:"GBW",u:" MHz",t:"min"},
+ {k:"vs",h:["supply max (v)","vs max","supply voltage"],l:"Max supply voltage ≥",s:"Supply",u:" V",t:"min"}]},
+"ADC":{tab:"ADCs",f:[
+ {k:"bits",h:["resolution (bits)","resolution","bits"],l:"Resolution ≥",s:"Res",u:" bit",t:"min"},
+ {k:"msps",h:["sample rate (msps)","sample rate","msps"],l:"Sample rate ≥",s:"Rate",u:" MSPS",t:"min"},
+ {k:"iface",h:["interface"],l:"Interface",s:"I/F",u:"",t:"sel"}]}
 };
-var SNAP={"LDO":"Part number,Manufacturer,Grade,TID,SEL LET,Iout (A),Data source,Report link,Notes\nTPS7H1111-SP,Texas Instruments,Rad-hard,100,75,1.5,Manufacturer,ti.com/product/TPS7H1111-SP,RHA 100 or 50 krad(Si). SEL SEB and SEGR immune to 75.\nTPS7H1111-SEP,Texas Instruments,Rad-hard,50,43,1.5,Manufacturer,ti.com/product/TPS7H1111-SEP,Space enhanced plastic. TID 50 krad(Si) RLAT. DSEE free to 43.","FPGA":""};
+var SNAP={
+"LDO":"Part number,Manufacturer,Grade,TID,SEL LET,Iout (A),Data source,Report link,Notes\nTPS7H1111-SP,Texas Instruments,Rad-hard,100,75,1.5,Manufacturer,ti.com/product/TPS7H1111-SP,RHA 100 or 50 krad(Si). SEL SEB and SEGR immune to 75.\nTPS7H1111-SEP,Texas Instruments,Rad-hard,50,43,1.5,Manufacturer,ti.com/product/TPS7H1111-SEP,Space enhanced plastic. TID 50 krad(Si) RLAT. DSEE free to 43.",
+"FPGA":"",
+"Op-amp":"Part number,Manufacturer,Grade,TID,SEL LET,GBW (MHz),Supply max (V),Data source,Report link,Notes\nLMP7704-SP,Texas Instruments,Rad-hard,100,85,2.5,,Manufacturer,ti.com/product/LMP7704-SP,QMLV. ELDRS-free to 100 krad. SEE characterized to 85.\nOPA4H199-SP,Texas Instruments,Rad-hard,100,65,4.5,40,Manufacturer,ti.com/product/OPA4H199-SP,QML-P plastic. SEL immune to 65.\nOPA4277-SP,Texas Instruments,Rad-hard,50,85,,,Manufacturer,ti.com/product/OPA4277-SP,QMLV. ELDRS-free. SEL immune to 85.",
+"ADC":"Part number,Manufacturer,Grade,TID,SEL LET,Resolution (bits),Sample rate (MSPS),Interface,Data source,Report link,Notes\nADC14155QML-SP,Texas Instruments,Rad-hard,100,120,14,155,Parallel CMOS,Manufacturer,ti.com/product/ADC14155QML-SP,Reports dated 2012.\nADC3683-SP,Texas Instruments,Rad-hard,300,75,18,65,Serial LVDS,Manufacturer,ti.com/product/ADC3683-SP,QMLV. Dual channel.\nADC12DJ3200QML-SP,Texas Instruments,Rad-hard,300,120,12,3200,JESD204B,Manufacturer,ti.com/product/adc12dj3200qml-sp,3200 MSPS dual channel; 6400 single channel."};
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function csv(t){var R=[],r=[],c="",q=false;
  for(var i=0;i<t.length;i++){var ch=t[i];
@@ -166,14 +201,14 @@ function parse(text,type){
  var H=R[0].map(function(h){return h.trim().toLowerCase()});
  return R.slice(1).map(function(r){
   var o={};H.forEach(function(h,i){o[h]=(r[i]||"").trim()});
-  var d={p:pick(o,BASE.p),m:pick(o,BASE.m),gt:pick(o,BASE.g),tid:num(pick(o,BASE.tid)),sel:pick(o,BASE.sel),src:pick(o,BASE.src),link:pick(o,BASE.link),lot:pick(o,BASE.lot),notes:pick(o,BASE.notes),a:{}};
+  var d={p:pick(o,BASE.p),m:pick(o,BASE.m),gt:pick(o,BASE.g),tid:num(pick(o,BASE.tid)),sel:pick(o,BASE.sel),src:pick(o,BASE.src),link:pick(o,BASE.link),notes:pick(o,BASE.notes),a:{}};
   d.g=/commercial|cots/i.test(d.gt)?"cm":"rh";
   T[type].f.forEach(function(x){d.a[x.k]=pick(o,x.h)});
   return d}).filter(function(d){return d.p})}
 var CACHE={};
 async function load(type){
  if(CACHE[type])return CACHE[type];
- var res={rows:[],live:false};
+ var res;
  try{
   var r=await fetch("https://docs.google.com/spreadsheets/d/"+SHEET+"/gviz/tq?tqx=out:csv&sheet="+encodeURIComponent(T[type].tab));
   if(!r.ok)throw 0;res={rows:parse(await r.text(),type),live:true};
@@ -185,7 +220,7 @@ function has(rows,k){return rows.some(function(d){return d.a[k]!==""})}
 sel.onchange=async function(){
  var t=sel.value;$("res").innerHTML="";
  if(!t){$("hint").style.display="block";$("hint").textContent="Select a component family to see its filters.";$("filters").innerHTML="";return}
- $("hint").style.display="block";$("hint").textContent="Loading…";
+ $("hint").style.display="block";$("hint").textContent="Loading…";$("filters").innerHTML="";
  var L=await load(t);if(sel.value!==t)return;
  var fs=T[t].f.filter(function(x){return has(L.rows,x.k)});
  $("hint").style.display=fs.length?"none":"block";$("hint").textContent="No extra filters available for this family yet.";
@@ -199,21 +234,22 @@ sel.onchange=async function(){
 async function search(){
  var t=sel.value;
  if(!t){$("res").innerHTML='<p class="count">Choose a component family first.</p>';return}
- var L=await load(t),g=document.querySelector('input[name=grade]:checked').value,f=T[t].f,tid=parseFloat($("rtid").value);
+ var L=await load(t),g=document.querySelector('input[name=grade]:checked').value,f=T[t].f,tid=parseFloat($("rtid").value),sl=parseFloat($("rsel").value);
  var r=L.rows.filter(function(d){
   if(g!=="both"&&d.g!==g)return false;
   if(!isNaN(tid)&&!(d.tid>=tid))return false;
+  if(!isNaN(sl)&&!(num(d.sel)>=sl))return false;
   return f.every(function(x){var el=$("f_"+x.k);if(!el||el.value==="")return true;
    if(x.t==="sel")return d.a[x.k]===el.value;
    var v=parseFloat(el.value),n=num(d.a[x.k]);if(isNaN(v))return true;return!isNaN(n)&&n>=v})}).sort(function(a,b){return(b.tid||0)-(a.tid||0)});
  var rows=r.map(function(d){
   var sp=f.filter(function(x){return d.a[x.k]!==""}).map(function(x){return x.s+" "+esc(d.a[x.k])+x.u}).join(" · ");
   var lk=d.link?'<a href="'+esc(/^https?:/i.test(d.link)?d.link:"https://"+d.link)+'" target="_blank" rel="noopener" style="color:var(--acc)">'+esc(d.src||"Report")+'</a>':esc(d.src);
-  return'<tr><td><span class="pn">'+esc(d.p)+'</span><br><span class="sp">'+esc(d.m)+(d.lot?" · lot "+esc(d.lot):"")+'</span></td><td><span class="g '+d.g+'">'+esc(d.gt||(d.g==="rh"?"Rad-hard":"Commercial"))+'</span></td><td class="sp">'+sp+'</td><td>'+(isNaN(d.tid)?"–":d.tid+" krad")+'</td><td>'+esc(d.sel||"–")+'</td><td class="sp">'+lk+'</td><td class="sp">'+esc(d.notes)+'</td></tr>'}).join("");
+  return'<tr><td><span class="pn">'+esc(d.p)+'</span><br><span class="sp">'+esc(d.m)+'</span></td><td><span class="g '+d.g+'">'+esc(d.gt||(d.g==="rh"?"Rad-hard":"Commercial"))+'</span></td><td class="sp">'+sp+'</td><td>'+(isNaN(d.tid)?"–":d.tid+" krad")+'</td><td>'+esc(d.sel||"–")+'</td><td class="sp">'+lk+'</td><td class="sp">'+esc(d.notes)+'</td></tr>'}).join("");
  $("res").innerHTML='<div class="count">'+r.length+(r.length===1?" result":" results")+'</div>'+(r.length?'<div class="wrap"><table><thead><tr><th>Part</th><th>Grade</th><th>Key specs</th><th>TID</th><th>SEL LET</th><th>Source</th><th>Notes</th></tr></thead><tbody>'+rows+'</tbody></table></div>':'<p class="hint">No parts match. Try removing a filter.</p>')+'<p class="fn">SEL LET in MeV·cm²/mg. Sorted by TID. '+(L.live?"Live data from the SEEker database.":"Showing a saved snapshot. Live data loads once the site is hosted.")+' Always verify against the original report.</p>';
 }
 $("go").onclick=search;
-$("reset").onclick=function(){sel.value="";sel.onchange();$("rtid").value="";document.querySelector('input[name=grade][value=both]').checked=true;$("res").innerHTML=""};
+$("reset").onclick=function(){sel.value="";sel.onchange();$("rtid").value="";$("rsel").value="";document.querySelector('input[name=grade][value=both]').checked=true;$("res").innerHTML=""};
 
 var G=[
 {id:"lot",t:"Lot-to-lot variability",s:"Why the lot number matters",h:function(){
