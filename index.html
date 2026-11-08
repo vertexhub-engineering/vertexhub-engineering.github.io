@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SEEker: radiation data for ICs</title>
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--text:#14202e;--muted:#5b6b7d;--line:#dbe3ec;--acc:#e8590c;--acc2:#0b7285;--ok:#2b8a3e;--warn:#e67700;--bad:#c92a2a;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1520;--card:#162231;--text:#e6edf5;--muted:#9fb0c3;--line:#273a50;--acc:#ff8a4c;--acc2:#3bc9db;--ok:#69db7c;--warn:#ffa94d;--bad:#ff8787;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1520;--card:#162231;--text:#e6edf5;--muted:#9fb0c3;--line:#273a50;--acc:#ff8a4c;--acc2:#3bc9db;--ok:#69db7c;--warn:#ffa94d;--bad:#ff8787;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:28px 20px 12px;max-width:1000px;margin:0 auto}
+.logo{font-size:2rem;font-weight:800;letter-spacing:-.5px}
+.logo b{color:var(--acc)}
+.tag{color:var(--muted);margin:2px 0 0}
+nav{display:flex;gap:6px;overflow-x:auto;max-width:1000px;margin:0 auto;padding:8px 20px;border-bottom:1px solid var(--line)}
+nav a{white-space:nowrap;padding:8px 14px;border-radius:999px;color:var(--muted);text-decoration:none;font-weight:600;font-size:.92rem}
+nav a.on{background:var(--acc);color:#fff}
+main{max-width:1000px;margin:0 auto;padding:20px}
+section{display:none}section.on{display:block}
+h2{margin:.2em 0 .4em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+.note{background:var(--card);border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;color:var(--muted);font-size:.9rem;margin:10px 0}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+input,select{padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--text);font:inherit;min-width:140px;flex:1}
+button,.btn{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:10px 18px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.92rem}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.5px}
+.pill{padding:2px 9px;border-radius:999px;font-size:.78rem;font-weight:700;border:1px solid currentColor}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+footer{max-width:1000px;margin:0 auto;padding:20px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">SEE<b>ker</b></div>
+<p class="tag">Find ICs that survive radiation. Test data, guides, facilities and expert help.</p>
+</header>
+<nav id="nav">
+<a href="#database">Tested parts</a>
+<a href="#recommend">Find a part</a>
+<a href="#radhard">Rad-hard market</a>
+<a href="#guides">Test guides</a>
+<a href="#facilities">Facilities</a>
+<a href="#consult">Consultation</a>
+</nav>
+<main>
+
+<section id="database">
+<h2>Industrial and COTS parts tested in radiation</h2>
+<div class="note">All rows below are <b>placeholder examples</b>, not real test results. Replace them with verified data and report links.</div>
+<div class="row">
+<input id="q" placeholder="Search part number or manufacturer">
+<select id="cat"><option value="">All categories</option><option>Op-amp</option><option>Regulator</option><option>ADC</option></select>
+</div>
+<div class="card wrap"><table>
+<thead><tr><th>Part</th><th>Maker</th><th>Type</th><th>TID (krad)</th><th>SEL LET (MeV·cm²/mg)</th><th>Source</th><th>Report</th></tr></thead>
+<tbody id="tb"></tbody></table></div>
+</section>
+
+<section id="recommend">
+<h2>Find a part for your requirements</h2>
+<p class="tag">Enter what the mission needs. The tool ranks the parts in the database.</p>
+<div class="card">
+<div class="row">
+<select id="rcat"><option>Op-amp</option><option>Regulator</option><option>ADC</option></select>
+<input id="rtid" type="number" min="0" placeholder="Required TID (krad)" value="50">
+<input id="rsel" type="number" min="0" placeholder="Required SEL-free LET" value="37">
+</div>
+<button id="go">Get recommendations</button>
+</div>
+<div id="out"></div>
+</section>
+
+<section id="radhard">
+<h2>Rad-hard parts on the market</h2>
+<div class="note">Section to build: vendor, qualification level (QML-V, ESCC, etc.), TID and SEE limits, availability and lead time.</div>
+<div class="card wrap"><table>
+<thead><tr><th>Part</th><th>Vendor</th><th>Type</th><th>Qualification</th><th>TID</th></tr></thead>
+<tbody><tr><td>Example-RH-1</td><td>Vendor A</td><td>Op-amp</td><td>QML-V</td><td>300 krad</td></tr>
+<tr><td>Example-RH-2</td><td>Vendor B</td><td>Regulator</td><td>ESCC</td><td>100 krad</td></tr></tbody></table></div>
+</section>
+
+<section id="guides">
+<h2>How to test it</h2>
+<div class="grid">
+<div class="card"><h3>Op-amps</h3><p>Bias during irradiation, Vos, Ib, GBW and ELDRS checks. Pass/fail limits and setup.</p><span class="pill warn">Draft</span></div>
+<div class="card"><h3>Voltage regulators</h3><p>Output voltage, dropout, load transients, SET capture and SEL monitoring.</p><span class="pill warn">Draft</span></div>
+<div class="card"><h3>ADCs</h3><p>INL/DNL drift, SEFI recovery and clock handling during beam tests.</p><span class="pill warn">Draft</span></div>
+<div class="card"><h3>FPGAs</h3><p>Configuration upsets, scrubbing and functional monitoring.</p><span class="pill warn">Planned</span></div>
+</div>
+</section>
+
+<section id="facilities">
+<h2>Radiation test facilities</h2>
+<div class="note">Check each facility’s website for current beam types, availability and costs before relying on this list.</div>
+<div class="card wrap"><table>
+<thead><tr><th>Facility</th><th>Location</th><th>Radiation</th></tr></thead>
+<tbody>
+<tr><td>UCLouvain CRC</td><td>Belgium</td><td>Heavy ions, protons</td></tr>
+<tr><td>RADEF, Jyväskylä</td><td>Finland</td><td>Heavy ions, protons</td></tr>
+<tr><td>PSI Proton Irradiation Facility</td><td>Switzerland</td><td>Protons</td></tr>
+<tr><td>CERN IRRAD</td><td>Switzerland / France</td><td>Protons</td></tr>
+<tr><td>ESA ESTEC</td><td>Netherlands</td><td>Co-60 gamma</td></tr>
+<tr><td>Texas A&amp;M Cyclotron</td><td>USA</td><td>Heavy ions, protons</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="consult">
+<h2>Book a consultation</h2>
+<div class="card">
+<p>Radiation test planning, part selection and test setup review with an experienced rad-hard electronics engineer. More experts can be added later.</p>
+<a class="btn" href="#consult" id="book">Book a call (booking link coming soon)</a>
+<p class="tag">To go live, replace this button with your Cal.com or Calendly link.</p>
+</div>
+</section>
+
+</main>
+<footer>SEEker, first prototype. Data shown is placeholder content.</footer>
+
+<script>
+var DATA=[
+{p:"EXAMPLE-OA-1",m:"Maker A",t:"Op-amp",tid:100,sel:60,s:"Independent lab"},
+{p:"EXAMPLE-OA-2",m:"Maker B",t:"Op-amp",tid:30,sel:20,s:"Manufacturer"},
+{p:"EXAMPLE-REG-1",m:"Maker C",t:"Regulator",tid:75,sel:40,s:"Independent lab"},
+{p:"EXAMPLE-REG-2",m:"Maker D",t:"Regulator",tid:20,sel:15,s:"User submitted"},
+{p:"EXAMPLE-ADC-1",m:"Maker E",t:"ADC",tid:50,sel:37,s:"Independent lab"}
+];
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function draw(){
+ var q=document.getElementById("q").value.toLowerCase(),c=document.getElementById("cat").value,h="";
+ DATA.forEach(function(d){
+  if(c&&d.t!==c)return;
+  if(q&&(d.p+d.m).toLowerCase().indexOf(q)<0)return;
+  h+="<tr><td><b>"+esc(d.p)+"</b></td><td>"+esc(d.m)+"</td><td>"+esc(d.t)+"</td><td>"+d.tid+"</td><td>"+d.sel+"</td><td>"+esc(d.s)+"</td><td>link</td></tr>";
+ });
+ document.getElementById("tb").innerHTML=h||"<tr><td colspan=7>No parts found.</td></tr>";
+}
+document.getElementById("q").oninput=draw;
+document.getElementById("cat").onchange=draw;
+draw();
+document.getElementById("go").onclick=function(){
+ var c=document.getElementById("rcat").value,
+ t=parseFloat(document.getElementById("rtid").value)||0,
+ s=parseFloat(document.getElementById("rsel").value)||0,r=[];
+ DATA.forEach(function(d){
+  if(d.t!==c)return;
+  var mt=d.tid/(t||1),ms=d.sel/(s||1),m=Math.min(mt,ms),lab,cl;
+  if(m>=2){lab="Meets with margin";cl="ok"}else if(m>=1){lab="Marginal";cl="warn"}else{lab="Does not meet";cl="bad"}
+  r.push({d:d,m:m,lab:lab,cl:cl});
+ });
+ r.sort(function(a,b){return b.m-a.m});
+ var h=r.map(function(x){return '<div class="card"><b>'+esc(x.d.p)+'</b> <span class="pill '+x.cl+'">'+x.lab+'</span><br><span class="tag">TID '+x.d.tid+' krad vs '+(t)+' needed, SEL LET '+x.d.sel+' vs '+s+' needed. Margin ×'+x.m.toFixed(1)+'</span></div>'}).join("");
+ document.getElementById("out").innerHTML=h||'<div class="card">No data for this category yet.</div>';
+};
+function route(){
+ var id=(location.hash||"#database").slice(1),ok=false;
+ document.querySelectorAll("section").forEach(function(s){var on=s.id===id;s.classList.toggle("on",on);if(on)ok=true});
+ if(!ok){id="database";document.getElementById(id).classList.add("on")}
+ document.querySelectorAll("#nav a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+id)});
+}
+window.addEventListener("hashchange",route);route();
+</script>
+</body>
+</html>
